@@ -135,11 +135,11 @@ src/
 
 - Backend Deployment
     - Live Demo: The application is hosted on Vercel
-    - Access it here: https://vault-insurance-backend.vercel.app/api/
+    - Access it here: https://vault-backend.vercel.app/api/
 
 - Frontend Deployment
     - Live Demo: The application is hosted on Vercel.
-    - Access it here: https://vault-insurance.vercel.app/
+    - Access it here: https://vault-insurance-frontend.vercel.app/
 
 
 ## 📌 Author

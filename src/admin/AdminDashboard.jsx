@@ -22,9 +22,9 @@ const AdminDashboard = () => {
         
         // Fetch data from all endpoints including life insurance
         const [contactsRes, businessRes, healthRes, lifeRes] = await Promise.all([
-          axios.get('http://localhost:4000/api/contact'),
-          axios.get('http://localhost:4000/api/business-quotes'),
-          axios.get('http://localhost:4000/api/health-insurance-leads'),
+          axios.get('https://vault-backend.vercel.app/api/contact'),
+          axios.get('https://vault-backend.vercel.app/api/business-quotes'),
+          axios.get('https://vault-backend.vercel.app/api/health-insurance-leads'),
           getLifeInsuranceLeads()
         ]);
 

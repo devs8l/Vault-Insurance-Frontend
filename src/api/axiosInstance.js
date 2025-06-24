@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:4000/api', // Your backend URL http://localhost:4000/api
+    baseURL: 'https://vault-backend.vercel.app/api', // Your backend URL http://localhost:4000/api
     timeout: 10000, // Request timeout
 });
 

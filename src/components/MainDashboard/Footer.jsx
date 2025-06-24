@@ -52,7 +52,7 @@ const Footer = () => {
               <input type="hidden" name="_captcha" value="false" />
 
               {/* Optional: Redirect to thank-you page */}
-              <input type="hidden" name="_next" value="https://vault-insurance.vercel.app/thank-you" />
+              <input type="hidden" name="_next" value="https://vault-insurance-frontend.vercel.app/thank-you" />
 
               <div className="max-w-[250px] flex border border-[#2d323d] rounded-lg overflow-hidden">
                 <input
