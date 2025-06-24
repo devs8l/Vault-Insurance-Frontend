@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+
+@font-face {
+    font-family: gil-reg;
+    src: url('../public/fonts/Gilroy-Medium.ttf');
+   
+}
+
+*{
+    font-family: gil-reg;
+}
+
+@layer components {
+  
+  .swiper-container-with-custom-pagination .swiper-pagination {
+    position: relative !important;
+    bottom: auto !important;     
+    margin-top: 30px;            
+    text-align: center;          
+  }
+
+  .swiper-container-with-custom-pagination .swiper-pagination-bullet-active {
+    background: #ffffff !important; 
+  }
+}
