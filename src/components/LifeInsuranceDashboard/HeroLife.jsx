@@ -232,20 +232,17 @@ const HeroLife = () => {
 
             {/* DOB Input with label */}
             <div className="w-full">
+              <label className="block text-sm text-gray-600 mb-1">DOB*</label>
               <input
-                type="text"
-                placeholder="DOB"
-                onFocus={(e) => (e.target.type = "date")}
-                onBlur={(e) => {
-                  if (!e.target.value) e.target.type = "text";
-                }}
+                type="date"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
                 className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 
-                        text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
+                      text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
                 required
               />
             </div>
+
             <div className="relative">
               <select
                 value={gender}
