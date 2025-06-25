@@ -294,7 +294,11 @@ const LifeForm = () => {
             <div key={index} className={index < 3 ? "" : "md:col-span-2"}>
               <label className="block text-[15px] text-[#596069] mb-2">
                 {field.label}
+                {field.type === "date" && (
+                  <span className="text-xs text-gray-400 ml-2">(dd/mm/yyyy)</span>
+                )}
               </label>
+
               {field.type === "select" ? (
                 <select
                   value={field.value}
@@ -311,25 +315,7 @@ const LifeForm = () => {
                 </select>
               ) : (
                 <input
-                  type={
-                    field.type === "date"
-                      ? "text"
-                      : field.type === "email"
-                      ? "email"
-                      : field.type
-                  }
-                  onFocus={
-                    field.type === "date"
-                      ? (e) => (e.target.type = "date")
-                      : undefined
-                  }
-                  onBlur={
-                    field.type === "date"
-                      ? (e) => {
-                          if (!e.target.value) e.target.type = "text";
-                        }
-                      : undefined
-                  }
+                  type={field.type}
                   value={field.value}
                   onChange={(e) => field.setter(e.target.value)}
                   className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-sm focus:outline-none focus:border-blue-300"
@@ -339,6 +325,7 @@ const LifeForm = () => {
             </div>
           ))}
         </div>
+
 
         {/* Submit Button */}
         <div className="flex justify-end">

@@ -17,6 +17,7 @@ const Button = ({
     secondary: 'bg-white text-[#3db1ff] hover:bg-gray-100 cursor-pointer',
     outline: 'border-2 border-white text-white hover:bg-white hover:text-[#3db1ff] cursor-pointer',
     ghost: 'bg-transparent text-white hover:bg-white/10 cursor-pointer',
+    desk: "bg-[#5788E9] text-white hover:opacity-90 cursor-pointer"
   };
 
   const sizes = {
