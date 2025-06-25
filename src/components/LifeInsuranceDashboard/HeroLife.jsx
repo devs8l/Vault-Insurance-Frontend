@@ -232,7 +232,6 @@ const HeroLife = () => {
 
             {/* DOB Input with label */}
             <div className="w-full">
-              <label className="block text-sm text-gray-600 mb-1">DOB*</label>
               <input
                 type="date"
                 value={dob}
