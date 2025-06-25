@@ -113,7 +113,7 @@ const Contact = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                   required
                 />
               </div>
@@ -124,7 +124,7 @@ const Contact = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                   required
                 />
               </div>
@@ -138,7 +138,7 @@ const Contact = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                   required
                 />
               </div>
@@ -149,7 +149,7 @@ const Contact = () => {
                   name="helpWith"
                   value={formData.helpWith}
                   onChange={handleInputChange}
-                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                   required
                 />
               </div>
@@ -162,7 +162,7 @@ const Contact = () => {
                 value={formData.message}
                 onChange={handleInputChange}
                 rows={5}
-                className="w-full px-4 py-3 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 resize-none"
+                className="w-full px-4 py-3 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 resize-none cursor-pointer"
                 required
               ></textarea>
             </div>
@@ -191,7 +191,7 @@ const Contact = () => {
                   <button
                     key={type}
                     onClick={() => setActiveForm(type)}
-                    className={`px-5 py-2 rounded-full text-sm font-medium transition ${
+                    className={`px-5 py-2 rounded-full text-sm font-medium transition cursor-pointer ${
                       activeForm === type
                         ? "bg-[#24BDED] text-white"
                         : "bg-white text-[#24BDED] border border-[#24BDED]"

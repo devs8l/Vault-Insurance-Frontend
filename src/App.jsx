@@ -27,18 +27,19 @@ import LifeInsuranceLeads from './admin/LifeInsuranceLeads';
 
 
 function MainWebsite() {
+  
   return (
     <>
       <Header />
       <main>
-        <HeroSection />
+        <HeroSection  />
         <InsuranceSections />
         <CoreValuesSection />
         <About />
         <Statistics />
         <Contact />
       </main>
-      <Footer />
+      <Footer  />
     </>
   );
 }

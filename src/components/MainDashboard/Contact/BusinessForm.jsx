@@ -49,7 +49,7 @@ const BusinessForm = () => {
                         placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                         required
                     />
                     <input
@@ -57,7 +57,7 @@ const BusinessForm = () => {
                         placeholder="Business Name"
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
-                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                         required
                     />
                     <input
@@ -65,13 +65,13 @@ const BusinessForm = () => {
                         placeholder="Mobile Number"
                         value={mobile}
                         onChange={(e) => setMobileNumber(e.target.value)}
-                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                         required
                     />
                     <select
                         value={product}
                         onChange={(e) => setProduct(e.target.value)}
-                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                         required
                     >
                         <option value="">Product Type</option>
@@ -84,7 +84,7 @@ const BusinessForm = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email ID"
-                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                         required
                     />
                 </div>
@@ -92,7 +92,7 @@ const BusinessForm = () => {
                 <div className="flex justify-end">
                     <button
                         type="submit"
-                        className="w-[180px] h-14 bg-gradient-to-r from-[#39b2ff] to-[#c465ea] text-white rounded-[16px] font-semibold text-lg hover:brightness-110 transition"
+                        className="w-[180px] h-14 bg-gradient-to-r from-[#39b2ff] to-[#c465ea] text-white rounded-[16px] font-semibold text-lg hover:brightness-110 transition cursor-pointer"
                     >
                         Get a Free Quote
                     </button>

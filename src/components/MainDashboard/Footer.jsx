@@ -1,6 +1,22 @@
 import React, { useState } from 'react';
 
 const Footer = () => {
+
+
+  const handleExploreVault = () => {
+    const aboutSection = document.getElementById('about-vault');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const [showClaimsInfo, setShowClaimsInfo] = useState(false);
+
+  const handleClaimsClick = (e) => {
+    e.preventDefault(); // prevent redirect to /not-found
+    setShowClaimsInfo(!showClaimsInfo);
+  };
+  
+
   return (
     <footer className="bg-[linear-gradient(to_right,_rgba(189,218,255,1),_rgba(218,188,255,1))]  py-15 rounded-[30px] mx-3 mb-3 overflow-hidden">
       
@@ -21,12 +37,77 @@ const Footer = () => {
             <div>
               <h3 className="text-[17px] font-bold text-[#2d313d] mb-6">Quick links</h3>
               <ul className="space-y-6 text-[15px]">
-                <li><a href="/" className="text-[#2d313d] hover:text-blue-600 transition-colors">About Us</a></li>
+                <li>
+                  <a
+                    onClick={handleExploreVault}
+                    className="text-[#2d313d] hover:text-blue-600 transition-colors cursor-pointer"
+                  >
+                    About Us
+                  </a>
+                </li>
                 <li><a href="/vehicle-insurance" className="text-[#2d313d] hover:text-blue-600 transition-colors">Vehicle Insurance</a></li>
                 <li><a href="/health-insurance" className="text-[#2d313d] hover:text-blue-600 transition-colors">Health Insurance</a></li>
                 <li><a href="/life-insurance" className="text-[#2d313d] hover:text-blue-600 transition-colors">Life Insurance</a></li>
                 <li><a href="/business-insurance" className="text-[#2d313d] hover:text-blue-600 transition-colors">Business Insurance</a></li>
-                <li><a href="/not-found" className="text-[#2d313d] hover:text-blue-600 transition-colors">claims</a></li>
+                <li>
+                  <a
+                      onClick={handleClaimsClick}
+                      className="flex items-center space-x-1 text-[#2d313d] hover:text-blue-600 transition-colors cursor-pointer"
+                  >
+                      <span>Claims</span>
+                      <svg
+                        className="w-4 h-4 transition-transform duration-200"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                  </a>
+                </li>
+                {/* Claims Info Dropdown */}
+                {showClaimsInfo && (
+                  <div className="bg-white rounded-xl shadow w-72 z-50 max-w-full p-4 space-y-4">
+                    {/* Call Us */}
+                    <div className="flex items-start space-x-3">
+                      <img
+                        src="/svg/call.svg"
+                        alt="Call Icon"
+                        className="h-5 w-5 mt-1 object-contain"
+                      />
+                      <div>
+                        <p className="text-sm text-gray-800 font-medium">call us</p>
+                        <a
+                          href="tel:+919876543210"
+                          className="text-sm text-blue-600 font-medium break-all hover:underline"
+                        >
+                          +91 9876543210
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* WhatsApp Us */}
+                    <div className="flex items-start space-x-3">
+                      <img
+                        src="/svg/whatsapp.svg"
+                        alt="WhatsApp Icon"
+                        className="h-5 w-5 mt-1 object-contain"
+                      />
+                      <div>
+                        <p className="text-sm text-gray-800 font-medium">whatsapp us</p>
+                        <a
+                          href="https://wa.me/919876543210?text=Hi,%20I'm%20interested%20in%20learning%20more%20about%20your%20insurance%20services."
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 font-medium break-all hover:underline"
+                        >
+                          +91 9876543210
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </ul>
             </div>
           </div>
@@ -35,7 +116,13 @@ const Footer = () => {
           <div>
             <h3 className="text-[17px] font-bold text-[#2d313d] mb-6">Careers</h3>
             <ul className="space-y-6 text-[15px]">
-              <li><a href="/not-found" className="text-[#2d313d] hover:text-blue-600 transition-colors">Explore Careers: vaultinsurance.in@gmail.com</a></li>
+              <li>
+                <a
+                  href="mailto:vaultinsurance.in@gmail.com"
+                  className="text-[#2d313d] hover:text-blue-600 transition-colors"
+                >
+                  Explore Careers: vaultinsurance.in@gmail.com
+                </a></li>
             </ul>
           </div>
 

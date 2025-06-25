@@ -121,13 +121,17 @@ const CoreValuesSection = () => {
         </Button>
         </div>
         <div  className='md:hidden'>
-          <Button 
-          onClick={handleGetQuote} 
+        <Button  
           variant='desk'
           size="large" 
           className="w-full hover:brightness-110"
         >
-          Book A Free Call
+          <a
+                  href="tel:+919876543210"
+                  className="text-lg font-medium break-all hover:underline"
+                >
+                  Book A Free Call
+                </a>
         </Button>
         </div>
         

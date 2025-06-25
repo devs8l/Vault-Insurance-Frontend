@@ -61,7 +61,7 @@ const InsuranceSections = () => {
 
   const handleExploreVault = () => {
     navigate("/business-insurance")
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   };
 
   const businessInsuranceItems = [
@@ -85,17 +85,17 @@ const InsuranceSections = () => {
 
 const handleRedirectLife = () => {
   navigate("/life-insurance")
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: "auto" });
 }
 
 const handleRedirectHealth = () => {
   navigate("/health-insurance")
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: "auto" });
 }
 
 const handleRedirectVehicle= () => {
   navigate("/vehicle-insurance")
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: "auto" });
 }
 
   return (
@@ -124,27 +124,64 @@ const handleRedirectVehicle= () => {
             {/* Icons Section */}
             <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center sm:space-x-8 space-y-6 sm:space-y-0 mb-0">
               <div
-                className="flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] hover:te group cursor-pointer"
+                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
                 onClick={handleRedirectLife}
               >
-                <img src="/images/Life.svg" alt="Life" className="w-8 h-8 group-hover:brightness-125 transition" />
-                <span className="text-white text-[15px] group-hover:text-[#50C0FA] transition">Life</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  viewBox="0 0 60 60"
+                  className="w-8 h-8 fill-white group-hover:fill-[#50C0FA] transition duration-300"
+                >
+                  <path
+                    opacity="0.9"
+                    d="M44.6025 39.1475L45.0425 39.59L45.4863 39.1475C47.683 36.9508 51.2445 36.9508 53.4413 39.1475C55.638 41.3442 55.638 44.9058 53.4413 47.1025L45.0445 55.4992L36.6475 47.1025C34.4508 44.9058 34.4508 41.3442 36.6475 39.1475C38.8443 36.9508 42.4058 36.9508 44.6025 39.1475ZM30 35V40C21.7157 40 15 46.7158 15 55H10C10 44.1628 18.6196 35.3388 29.377 35.0095L30 35ZM30 2.5C38.2875 2.5 45 9.2125 45 17.5C45 25.5993 38.5893 32.194 30.5625 32.4897L30 32.5C21.7125 32.5 15 25.7875 15 17.5C15 9.40085 21.4109 2.80593 29.4375 2.51035L30 2.5ZM30 7.5C24.4739 7.5 20 11.9739 20 17.5C20 23.0261 24.4739 27.5 30 27.5C35.526 27.5 40 23.0261 40 17.5C40 11.9739 35.526 7.5 30 7.5Z"
+                  />
+                </svg>
+                <span className="text-white text-[15px] group-hover:text-[#50C0FA] transition duration-300">
+                  Life
+                </span>
               </div>
-
               <div
-                className="flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] group cursor-pointer"
+                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
                 onClick={handleRedirectHealth}
               >
-                <img src="/images/Health.svg" alt="Health" className="w-8 h-8 group-hover:brightness-125 transition" />
-                <span className="text-white text-[15px] group-hover:text-[#50C0FA] transition">Health</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  viewBox="0 0 60 60"
+                  className="w-8 h-8 fill-white group-hover:fill-[#50C0FA] transition duration-300"
+                >
+                  <path
+                    opacity="0.9"
+                    d="M20 50V35H40V50H47.5V10H12.5V50H20ZM25 50H35V40H25V50ZM52.5 50H57.5V55H2.5V50H7.5V7.5C7.5 6.1193 8.6193 5 10 5H50C51.3807 5 52.5 6.1193 52.5 7.5V50ZM27.5 20V15H32.5V20H37.5V25H32.5V30H27.5V25H22.5V20H27.5Z"
+                  />
+                </svg>
+                <span className="text-white text-[15px] group-hover:text-[#50C0FA] transition duration-300">
+                  Health
+                </span>
               </div>
-
               <div
-                className="flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] group cursor-pointer"
+                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
                 onClick={handleRedirectVehicle}
               >
-                <img src="/images/Vehicle.svg" alt="Vehicle" className="w-8 h-8 group-hover:brightness-125 transition" />
-                <span className="text-white text-[15px] group-hover:text-[#50C0FA] transition">Vehicle</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  viewBox="0 0 60 60"
+                  className="w-8 h-8 fill-white group-hover:fill-[#50C0FA] transition duration-300"
+                >
+                  <path
+                    opacity="0.9"
+                    d="M47.5 50H12.5V52.5C12.5 53.8807 11.3807 55 10 55H7.5C6.1193 55 5 53.8807 5 52.5V27.5L11.2013 13.0304C11.9892 11.192 13.7969 10 15.797 10H44.203C46.2033 10 48.0108 11.192 48.7988 13.0304L55 27.5V52.5C55 53.8807 53.8808 55 52.5 55H50C48.6193 55 47.5 53.8807 47.5 52.5V50ZM50 32.5H10V45H50V32.5ZM10.4399 27.5H49.5603L44.203 15H15.797L10.4399 27.5ZM16.25 42.5C14.1789 42.5 12.5 40.821 12.5 38.75C12.5 36.679 14.1789 35 16.25 35C18.3211 35 20 36.679 20 38.75C20 40.821 18.3211 42.5 16.25 42.5ZM43.75 42.5C41.679 42.5 40 40.821 40 38.75C40 36.679 41.679 35 43.75 35C45.821 35 47.5 36.679 47.5 38.75C47.5 40.821 45.821 42.5 43.75 42.5Z"
+                  />
+                </svg>
+                <span className="text-white text-[15px] group-hover:text-[#50C0FA] transition duration-300">
+                  Vehicle
+                </span>
               </div>
             </div>
           </div>

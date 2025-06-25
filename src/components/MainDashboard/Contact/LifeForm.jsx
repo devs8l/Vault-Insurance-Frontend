@@ -303,7 +303,7 @@ const LifeForm = () => {
                 <select
                   value={field.value}
                   onChange={(e) => field.setter(e.target.value)}
-                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-sm focus:outline-none focus:border-blue-300"
+                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-sm focus:outline-none focus:border-blue-300 cursor-pointer"
                   required={field.required}
                 >
                   <option value="">Select Gender</option>
@@ -318,7 +318,7 @@ const LifeForm = () => {
                   type={field.type}
                   value={field.value}
                   onChange={(e) => field.setter(e.target.value)}
-                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-sm focus:outline-none focus:border-blue-300"
+                  className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-sm focus:outline-none focus:border-blue-300 cursor-pointer"
                   required={field.required}
                 />
               )}

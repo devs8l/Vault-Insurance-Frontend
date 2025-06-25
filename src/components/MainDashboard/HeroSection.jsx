@@ -15,10 +15,6 @@ const HeroSection = () => {
     }
   };
 
-  const handleBookCall = () => {
-    // Implement book a call functionality
-    window.open('https://calendly.com/your-link', '_blank');
-  };
 
   const Button = ({
     children,
@@ -128,12 +124,17 @@ const HeroSection = () => {
         <div className="block sm:hidden mt-8">
           <div className="flex flex-col gap-3 w-full max-w-xs mx-auto">
             <Button
-              onClick={handleBookCall}
+              
               variant="primary"
               size="large"
               className="w-full"
             >
-              Book A Free Call
+              <a
+                  href="tel:+919876543210"
+                  className="text-lg font-medium break-all hover:underline"
+                >
+                  Book A Free Call
+                </a>
             </Button>
           </div>
         </div>

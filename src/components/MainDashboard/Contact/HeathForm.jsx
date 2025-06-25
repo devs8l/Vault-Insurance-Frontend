@@ -238,7 +238,7 @@ const HealthForm = () => {
                         <button
                             type="button"
                             onClick={() => setFormData({...formData, adults: Math.max(0, formData.adults - 1)})}
-                            className="px-2 border"
+                            className="px-2 border cursor-pointer"
                         >
                             -
                         </button>
@@ -246,7 +246,7 @@ const HealthForm = () => {
                         <button
                             type="button"
                             onClick={() => setFormData({...formData, adults: formData.adults + 1})}
-                            className="px-2 border"
+                            className="px-2 border cursor-pointer"
                         >
                             +
                         </button>
@@ -260,7 +260,7 @@ const HealthForm = () => {
                         <button
                             type="button"
                             onClick={() => setFormData({...formData, children: Math.max(0, formData.children - 1)})}
-                            className="px-2 border"
+                            className="px-2 border cursor-pointer"
                         >
                             -
                         </button>
@@ -268,7 +268,7 @@ const HealthForm = () => {
                         <button
                             type="button"
                             onClick={() => setFormData({...formData, children: formData.children + 1})}
-                            className="px-2 border"
+                            className="px-2 border cursor-pointer"
                         >
                             +
                         </button>
@@ -280,7 +280,7 @@ const HealthForm = () => {
                 {/* Insurer Dropdown */}
                 <div className="relative" ref={dropdownRef}>
                     <div
-                        className={`w-full h-14 px-4 py-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.insurer ? 'border-red-500' : 'border-gray-300'} cursor-pointer`}
+                        className={`w-full h-14 px-4 py-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.insurer ? 'border-red-500' : 'border-gray-300'} cursor-pointer`}
                         onClick={() => setIsOpen(!isOpen)}
                     >
                         {formData.insurer || "Preferred Insurer"}
@@ -314,7 +314,7 @@ const HealthForm = () => {
                 <div className="relative">
                     <select
                         name="claimStatus"
-                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300"
+                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                         value={formData.claimStatus}
                         onChange={handleChange}
                     >
@@ -329,7 +329,7 @@ const HealthForm = () => {
                     type="number" 
                     name="eldestAge"
                     placeholder="Eldest Member Age"
-                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.eldestAge ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.eldestAge ? 'border-red-500' : 'border-gray-300'}`}
                     value={formData.eldestAge}
                     onChange={handleChange}
                 />
@@ -340,7 +340,7 @@ const HealthForm = () => {
                     type="text"
                     name="pincode"
                     placeholder="Pincode"
-                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.pincode ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.pincode ? 'border-red-500' : 'border-gray-300'}`}
                     value={formData.pincode}
                     onChange={handleChange}
                     maxLength="6"
@@ -356,7 +356,7 @@ const HealthForm = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Name"
-                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                     required
                 />
                 {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
@@ -368,7 +368,7 @@ const HealthForm = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Email ID"
-                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                     required
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
@@ -380,7 +380,7 @@ const HealthForm = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="Phone Number"
-                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
                     maxLength="10"
                     required
                 />
@@ -423,7 +423,7 @@ const HealthForm = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Name"
-                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                     required
                 />
                 {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
@@ -434,7 +434,7 @@ const HealthForm = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="Contact Number"
-                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
                     maxLength="10"
                     required
                 />
@@ -443,7 +443,7 @@ const HealthForm = () => {
                 <div className="relative">
                     <select
                         name="currentInsurer"
-                        className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.currentInsurer ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.currentInsurer ? 'border-red-500' : 'border-gray-300'}`}
                         value={formData.currentInsurer}
                         onChange={handleChange}
                         required
@@ -459,7 +459,7 @@ const HealthForm = () => {
                 <div className="relative">
                     <select
                         name="preferredInsurer"
-                        className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 ${errors.preferredInsurer ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer ${errors.preferredInsurer ? 'border-red-500' : 'border-gray-300'}`}
                         value={formData.preferredInsurer}
                         onChange={handleChange}
                         required
@@ -506,7 +506,7 @@ const HealthForm = () => {
                 <div className="flex justify-end">
                     <button 
                         type="submit" 
-                        className="w-[180px] h-14 bg-gradient-to-r from-[#39b2ff] to-[#c465ea] text-white rounded-[16px] font-semibold text-lg hover:brightness-110 transition"
+                        className="w-[180px] h-14 bg-gradient-to-r from-[#39b2ff] to-[#c465ea] text-white rounded-[16px] font-semibold text-lg hover:brightness-110 transition cursor-pointer"
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? 'Submitting...' : (policyType === "new" ? "Get a Free Quote" : "Renew My Policy")}
