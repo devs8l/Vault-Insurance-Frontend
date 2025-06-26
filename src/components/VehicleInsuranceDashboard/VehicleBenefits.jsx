@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const VehicleBenefits = () => {
     const benefitsData = [
         {
@@ -36,6 +37,22 @@ const VehicleBenefits = () => {
         {
         heading: "Legal Requirement",
         paragraph: "In many places, including India, third-party liability insurance is mandatory. Having a valid policy ensures you are following the law and avoids penalties."
+        },
+        {
+        heading: "Protection from Liabilities",
+        paragraph: "If you are at fault in an accident, your insurance can cover the costs of damage or injury to the other party, preventing you from having to pay large sums out-of-pocket."
+        },
+        {
+        heading: "Coverage for Your Vehicle",
+        paragraph: "Comprehensive insurance protects your vehicle from a range of risks, including accidents, theft, vandalism, natural disasters, and fire."
+        },
+        {
+        heading: "Peace of Mind",
+        paragraph: "Knowing you have insurance coverage can provide peace of mind while driving, reducing stress and worry about potential accidents or damage."
+        },
+        {
+        heading: "Additional Benefits",
+        paragraph: "Many insurance policies offer additional benefits such as roadside assistance, towing services, and coverage for personal belongings in the car."
         }
     ]
 

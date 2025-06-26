@@ -32,7 +32,7 @@ const VehiclePoints = () => {
         <>
             {/* vehicle Insuarance Point Section Start */}
 
-            <div className="hidden px-3 bg-[#F4F8FB] py-2 md:py-4 md:flex justify-center items-center">
+            <div className="mx-2 mb-2 px-3 bg-[#F4F8FB] py-2 md:py-4 md:flex justify-center items-center">
                 {/* Main section container */}
                 <section
                     className="w-full max-w-[1880px] h-full flex-shrink-0
@@ -49,16 +49,16 @@ const VehiclePoints = () => {
 
                     {/* Content Grid Desktop */}
                     <div className="lg:grid grid-cols-1 lg:grid-cols-2 gap-y-5 lg:gap-y-8 lg:gap-x-24 max-w-5xl w-full px-4">
-                    {points.map((point, index) => (
-                        <div key={index} className="flex flex-col">
-                        <h3 className="md:text-[18px] text-[14px] font-semibold text-[#222222] mb-2">
-                            {point.title}
-                        </h3>
-                        <p className="text-[#22272BCC] md:text-[14px] text-[12px] leading-relaxed">
-                            {point.description}
-                        </p>
-                        </div>
-                    ))}
+                        {points.map((point, index) => (
+                            <div key={index} className="flex flex-col mb-3">
+                            <h3 className="md:text-[18px] text-[14px] font-semibold text-[#5F88EC]">
+                                {point.title}
+                            </h3>
+                            <p className="text-[#22272BCC] md:text-[14px] text-[12px] leading-relaxed">
+                                {point.description}
+                            </p>
+                            </div>
+                        ))}
                     </div>
                 </section>
             </div>

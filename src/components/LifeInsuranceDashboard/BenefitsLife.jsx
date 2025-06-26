@@ -1,4 +1,5 @@
 import React from "react";
+import MobileFAQGridLife from "./MobileFAQGridLife";
 
 const BenefitLife = () => {
 
@@ -18,7 +19,10 @@ const BenefitLife = () => {
         {
         title: "Encourages Saving & Wealth Growth",
         description: "Some life insurance plans double as savings tools by investing your money to help grow your wealth."
-        },
+        }
+    ];
+
+    const benefits1 = [
         {
         title: "Coverage for Your Vehicle",
         description: "Comprehensive insurance protects your vehicle from a range of risks, including accidents, theft, vandalism, natural disasters, and fire."
@@ -33,7 +37,7 @@ const BenefitLife = () => {
         }
     ];
 
-    const benefits1 = [
+    const benefitsMobile = [
         {
         title: "Financial Protection",
         description: "Life insurance offers financial security to your family by providing compensation in case of an unfortunate event, in return for the premium paid."
@@ -41,8 +45,28 @@ const BenefitLife = () => {
         {
         title: "Customizable Plans",
         description: "Different insurance plans cater to different needs. The more you pay in premiums, the more benefits you can access.icy ensures you are following the law and avoids penalties."
+        },
+        {
+        title: "Health Expense Coverage",
+        description: "Many policies also include coverage for medical expenses like hospital stays and critical illness treatment."
+        },
+        {
+        title: "Encourages Saving & Wealth Growth",
+        description: "Some life insurance plans double as savings tools by investing your money to help grow your wealth."
+        },{
+        title: "Coverage for Your Vehicle",
+        description: "Comprehensive insurance protects your vehicle from a range of risks, including accidents, theft, vandalism, natural disasters, and fire."
+        },
+        {
+        title: "Assured Payouts",
+        description: "Insurance guarantees a fixed payout upon the occurrence of a covered event, ensuring predictable financial support."
+        },
+        {
+        title: "Tax Advantages",
+        description: "Premiums paid towards life insurance can reduce your taxable income under Section 80C of the Income Tax Act, 1961."
         }
     ];
+
 
     
     return (
@@ -61,39 +85,46 @@ const BenefitLife = () => {
             >
                 {/* Heading */}
                 <h2
-                className="text-white md:text-left text-center mb-16 md:mb-20
+                className="text-white text-center mb-16 md:mb-20
                             text-[28px] md:text-[46px] font-semibold"
                 >
                 Benefits of Life Insurance
                 </h2>
 
                 {/* Content Grid Desktop */}
-                <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-10 md:gap-x-12 lg:gap-x-20 lg:gap-y-16 max-w-7xl w-full ">
-                {benefits.map((benefit, index) => (
-                    <div key={index} className="flex flex-col text-white">
-                    <h3 className="md:text-[18px] text-[14px] font-semibold mb-2">
-                        {benefit.title}
-                    </h3>
-                    <p className="md:text-[15px] text-[14px] leading-relaxed opacity-90">
-                        {benefit.description}
-                    </p>
-                    </div>
-                ))}
+                <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-10 md:gap-x-12 lg:gap-x-20 lg:gap-y-16 max-w-7xl w-full mx-auto justify-items-center mb-16">
+                    {benefits.map((benefit, index) => (
+                        <div key={index} className="flex flex-col text-white w-full max-w-[250px]">
+                        <h3 className="md:text-[18px] text-[14px] font-semibold mb-2">
+                            {benefit.title}
+                        </h3>
+                        <p className="md:text-[15px] text-[14px] leading-relaxed opacity-90">
+                            {benefit.description}
+                        </p>
+                        </div>
+                    ))}
                 </div>
 
-                {/* Content Grid Mobile */}
-                <div className="grid md:hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 md:gap-x-12 lg:gap-x-20 lg:gap-y-16 max-w-7xl w-full px-4 text-center">
-                {benefits1.map((benefit, index) => (
-                    <div key={index} className="flex flex-col text-white">
-                    <h3 className="text-[20px] md:text-[24px] font-semibold mb-2">
-                        {benefit.title}
-                    </h3>
-                    <p className="text-[14px] md:text-[20px] leading-relaxed opacity-90">
-                        {benefit.description}
-                    </p>
+                {/* Content Grid Desktop */}
+                <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-y-10 md:gap-x-12 lg:gap-x-20 lg:gap-y-16 w-full max-w-7xl mx-auto px-4 justify-items-center">
+                    {benefits1.map((benefit, index) => (
+                        <div
+                        key={index}
+                        className="flex flex-col text-white max-w-[300px] w-full"
+                        >
+                        <h3 className="md:text-[18px] text-[14px] font-semibold mb-2">
+                            {benefit.title}
+                        </h3>
+                        <p className="md:text-[15px] text-[14px] leading-relaxed opacity-90">
+                            {benefit.description}
+                        </p>
+                        </div>
+                    ))}
                     </div>
-                ))}
-                </div>
+
+
+                {/* Content Grid Mobile */}
+                <MobileFAQGridLife benefits={benefitsMobile} />
             </section>
         </div>
 

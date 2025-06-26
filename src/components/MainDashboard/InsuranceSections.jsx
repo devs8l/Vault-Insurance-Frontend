@@ -124,7 +124,7 @@ const handleRedirectVehicle= () => {
             {/* Icons Section */}
             <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center sm:space-x-8 space-y-6 sm:space-y-0 mb-0">
               <div
-                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
+                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-6 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
                 onClick={handleRedirectLife}
               >
                 <svg
@@ -144,7 +144,7 @@ const handleRedirectVehicle= () => {
                 </span>
               </div>
               <div
-                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
+                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-6 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
                 onClick={handleRedirectHealth}
               >
                 <svg
@@ -164,7 +164,7 @@ const handleRedirectVehicle= () => {
                 </span>
               </div>
               <div
-                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-4 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
+                className="group flex items-center justify-center space-x-3 bg-[#FFFFFF1A] px-6 py-4 rounded-2xl hover:bg-[#FFFFFFCC] cursor-pointer transition"
                 onClick={handleRedirectVehicle}
               >
                 <svg

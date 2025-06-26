@@ -12,11 +12,11 @@ const TypeLife = () => {
             >
                 <div className="mb-16 px-4 max-w-4xl">
                 <h2 className="text-[28px] md:text-[46px] font-semibold text-[#202B32] mb-10">
-                    Understand the Types of Life Insurance
+                    Life Insurance & Its Type
                 </h2>
                 <p className="text-[#202B3299] text-[14px] md:text-[15px] leading-relaxed font-semibold">
-                    Depending on your specific financial need you need to choose the right type of life 
-                    <br/>insurance. Let’s map some of the common financial needs with suitable life insurance:
+                    Choose the right type of life insurance based on your financial need. 
+                    <br/>Here’s a quick map of common needs and suitable insurance types
                 </p>
                 </div>
 

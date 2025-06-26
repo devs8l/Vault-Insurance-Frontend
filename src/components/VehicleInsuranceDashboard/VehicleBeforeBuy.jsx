@@ -21,59 +21,38 @@ const VehicleBeforeBuy = () => {
         }
     ];
 
-    const coverageItems2 = [
-        {
-        text: `When choosing add-ons, factors like vehicle model, age, and specific components should be considered. For vehicles over five years old, it's advisable to include Roadside Assistance and Zero Depreciation Cover, if offered.`
-        },
-        {
-        text: 'Motorists living in coastal regions are more likely to benefit from Hydrostatic Lock or Engine Protect Covers, compared to those in non-coastal areas.'
-        },
-    ];
-
     return (
         <>
-        {/*Policy Vehicle Cover Section start */ }
-    
-        <section
-        className="w-full mx-auto bg-[#F4F8FB]
-                    py-20 px-4 md:px-8 lg:px-12
-                    flex flex-col items-center"
-        >
-            {/* Section Title */}
-            <h2 className="text-[28px] md:text-[46px] font-semibold text-[#22272B] mb-12 md:mb-25 text-center max-w-[55%]">
-                Points to Consider Before you Buy Car Insurance Policy Add-On
-            </h2>
+        {/*BeforeBuy Vehicle Cover Section start*/ }
 
-            {/* Grid for Icons and Descriptions for Desktop */}
-            
-            <div className="hidden md:grid grid-cols-1 md:grid-cols-1 gap-[40px] mb-8">
-                {coverageItems1.map((item, index) => (
-                    <div key={index} className="flex flex-row justify-center items-start px-4">
-                    <ul className="list-disc list-inside max-w-[600px]">
-                        <li className="md:text-[14px] text-[12px] text-[#222] leading-relaxed break-words text-left">
-                        {item.text}
-                        </li>
-                    </ul>
-                    </div>
-                ))}
+        <section className="w-full bg-[#F4F8FB] mx-2 md:mx-0 px-4 md:px-8 lg:px-16">
+            <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center">
+                {/* Left Content - Text */}
+                <div className="w-full">
+                <h2 className="text-[24px] md:text-[32px] lg:text-[36px] font-semibold text-[#22272B] mb-6">
+                    Points to Consider Before you Buy <br className="hidden md:block" />
+                    Car Insurance Policy Add-On
+                </h2>
+
+                <ul className="list-disc pl-5 space-y-4 text-[#222] text-[14px] md:text-[15px] leading-relaxed">
+                    {coverageItems1.map((item, index) => (
+                    <li key={index}>{item.text}</li>
+                    ))}
+                </ul>
+                </div>
+
+                {/* Right Content - Car Image */}
+                <div className="w-full r-0 flex justify-center">
+                <img
+                    src="/images/Car-blue2.png"
+                    alt="Blue Car"
+                    className="w-full h-auto object-contain"
+                />
+                </div>
             </div>
- 
+            </section>
 
-            {/* Grid for Icons and Descriptions For Mobile  */}
-           <div className="md:hidden grid grid-cols-1 gap-[40px] mb-8">
-                {coverageItems2.map((item, index) => (
-                    <div key={index} className="flex flex-row justify-center items-start px-4">
-                    <ul className="list-disc list-inside max-w-[600px]">
-                        <li className="md:text-[14px] text-[12px] text-[#222] leading-relaxed break-words text-left">
-                        {item.text}
-                        </li>
-                    </ul>
-                    </div>
-                ))}
-            </div>
-        </section>
-
-        {/*Policy Vehicle Cover Section end */ }
+        {/*BeforeBuy Vehicle Cover Section end */ }
 </>
     )
 }

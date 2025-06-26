@@ -22,7 +22,7 @@ const HeroLife = () => {
     { label: "HDFC Life", value: "hdfc" },
     { label: "Axis Max Life", value: "maxlife" },
     { label: "Aditya Birla Sun Life", value: "birla" },
-    { label: "Life Insurance Corporation (LIC)", value: "lic" },
+    { label: "Life Insurance Corporation", value: "lic" },
     { label: "Kotak Life", value: "kotak" },
     { label: "Bajaj Allianz Life", value: "bajaj" },
   ];
@@ -110,14 +110,14 @@ const HeroLife = () => {
               <div
                 onClick={() => setOpen(!open)}
                 className="bg-white border-2 border-white hover:border-blue-400 
-                  shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 
-                  rounded-md flex justify-between items-center cursor-pointer"
+                          shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 
+                          rounded-md flex justify-between items-center cursor-pointer"
               >
                 <span className="text-sm text-[#22272BCC]">
                   {selectedPlan || "Select Plan"}
                 </span>
                 <svg
-                  className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""} cursor-pointer`}
+                  className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -128,37 +128,48 @@ const HeroLife = () => {
 
               {open && (
                 <ul className="absolute z-20 bg-white w-full mt-2 border border-blue-300 rounded-md shadow-md">
-                  {["Family Protection (Term)", "Retirement Plan", "Child Future", "Children Future"].map((item) => (
+                  {["Family Protection (Term)", "Retirement Plan", "Child Future"].map((item) => (
                     <li
                       key={item}
-                      className="px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm"
+                      className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm"
                       onClick={() => {
                         handleSelect(item);
-                        setOpen(false); 
+                        setOpen(false);
                       }}
                     >
                       {item}
                     </li>
                   ))}
-
-                  {/* Investment Plan with nested submenu */}
-                  <li
-                    onMouseEnter={() => setSubmenuOpen(true)}
-                    onMouseLeave={() => setSubmenuOpen(false)}
-                    className="relative px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm"
-                  >
-                    Investment Plan
-                    <span className="absolute right-3">▶</span>
+                  
+                  {/* Investment Plan with click-to-expand submenu */}
+                  <li className="relative">
+                    <div 
+                      onClick={() => setSubmenuOpen(!submenuOpen)}
+                      className="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm flex justify-between items-center"
+                    >
+                      <span>Investment Plan</span>
+                      <svg
+                        className={`w-3 h-3 ml-2 transition-transform ${submenuOpen ? "rotate-90" : ""}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                    
+                    {/* Submenu that appears below */}
                     {submenuOpen && (
-                      <ul className="absolute top-0 left-full ml-2 w-56 bg-white border border-blue-300 rounded-md shadow-lg">
+                      <ul className="bg-blue-50 border-l-2 border-blue-200 ml-3 rounded-r">
                         {["Guaranteed Returns", "Market Linked ULIP"].map((item) => (
                           <li
                             key={item}
                             className="px-4 py-2 hover:bg-blue-100 cursor-pointer text-sm"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               handleSelect(item);
-                              setOpen(false); 
-                              setSubmenuOpen(false); 
+                              setOpen(false);
+                              setSubmenuOpen(false);
                             }}
                           >
                             {item}
@@ -170,7 +181,6 @@ const HeroLife = () => {
                 </ul>
               )}
             </div>
-
             {/* Companies Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <label className="block text-sm font-medium text-[#22272B] mb-2">

@@ -4,16 +4,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const insuranceCompanies = [
-  "Aditya Birla Health",
-  "Bajaj Allianz General",
-  "Care Health",
-  "HDFC ERGO General",
-  "ICICI Lombard General",
-  "Star Health",
-  "Tata AIG",
-  "Others"
+    "Care health",
+    "Hdfc ergo",
+    "Star health",
+    "Go digit",
+    "Cholamandalam",
+    "Icici Lombard",
+    "Future generali",
+    "TATA AIG"
 ];
-
 
 const HeroHealth = () => {
     // Form state
@@ -32,7 +31,7 @@ const HeroHealth = () => {
         email: "",
         phone: "",
         currentInsurer: "",
-        preferredInsurer: ""
+        preferredInsurer: []
     });
     const [policyFile, setPolicyFile] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,13 +40,19 @@ const HeroHealth = () => {
     // Search dropdown state
     const [search, setSearch] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+    const [isPrefInsurerOpen, setIsPrefInsurerOpen] = useState(false);
+    const [prefSearch, setPrefSearch] = useState("");
     const dropdownRef = useRef();
+    const prefDropdownRef = useRef();
 
-    // Close dropdown on outside click
+    // Close dropdowns on outside click
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
+            }
+            if (prefDropdownRef.current && !prefDropdownRef.current.contains(event.target)) {
+                setIsPrefInsurerOpen(false);
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
@@ -58,10 +63,29 @@ const HeroHealth = () => {
         company.toLowerCase().includes(search.toLowerCase())
     );
 
+    const filteredPrefCompanies = insuranceCompanies.filter(company =>
+        company.toLowerCase().includes(prefSearch.toLowerCase())
+    );
+
     const handleSelect = (company) => {
         setFormData({...formData, insurer: company});
         setIsOpen(false);
         setSearch("");
+    };
+
+    const handlePrefInsurerToggle = (company) => {
+        const currentSelection = formData.preferredInsurer;
+        if (currentSelection.includes(company)) {
+            setFormData({
+                ...formData,
+                preferredInsurer: currentSelection.filter(item => item !== company)
+            });
+        } else {
+            setFormData({
+                ...formData,
+                preferredInsurer: [...currentSelection, company]
+            });
+        }
     };
 
     const handleChange = (e) => {
@@ -90,7 +114,7 @@ const HeroHealth = () => {
             ['name', 'phone', 'currentInsurer', 'preferredInsurer'];
         
         requiredFields.forEach(field => {
-            if (!formData[field]) {
+            if (!formData[field] || (field === 'preferredInsurer' && formData[field].length === 0)) {
                 newErrors[field] = "This field is required";
             }
         });
@@ -114,7 +138,7 @@ const HeroHealth = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         
@@ -153,7 +177,9 @@ const HeroHealth = () => {
                 }
             } else {
                 formDataObj.append('current_insurer', formData.currentInsurer);
-                formDataObj.append('preferred_insurer', formData.preferredInsurer);
+                formData.preferredInsurer.forEach(insurer => {
+                    formDataObj.append('preferred_insurer[]', insurer);
+                });
                 
                 if (policyFile) {
                     formDataObj.append('policy_file', policyFile);
@@ -192,7 +218,7 @@ const HeroHealth = () => {
                 email: "",
                 phone: "",
                 currentInsurer: "",
-                preferredInsurer: ""
+                preferredInsurer: []
             });
             setPolicyFile(null);
             
@@ -295,39 +321,64 @@ const HeroHealth = () => {
 
             {/* Select Fields */}
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4">
-                {/* Insurer Dropdown */}
-                <div className="relative" ref={dropdownRef}>
+                {/* Preferred Insurer - Multi-select Dropdown */}
+                <div className="relative" ref={prefDropdownRef}>
                     <div
-                        className={`w-full bg-white shadow-[10px_10px_40px_rgba(26,129,255,0.10)] p-3 text-[13px] font-semibold text-[#22272BCC] border-2 ${errors.insurer ? 'border-red-500' : 'border-white hover:border-blue-400'} cursor-pointer`}
-                        onClick={() => setIsOpen(!isOpen)}
+                        className={`w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-[13px] font-semibold text-[#22272BCC] border-2 ${errors.preferredInsurer ? 'border-red-500' : 'border-white hover:border-blue-400'} cursor-pointer flex justify-between items-center`}
+                        onClick={() => setIsPrefInsurerOpen(!isPrefInsurerOpen)}
                     >
-                        {formData.insurer || "Preferred Insurer"}
+                        <span>
+                            {formData.preferredInsurer.length > 0 
+                                ? formData.preferredInsurer.join(", ")
+                                : "Preferred Insurance Company"}
+                        </span>
+                        <svg
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                        >
+                            <path
+                                d="M12.2188 16.2999L6.21875 10.2999L7.61875 8.8999L12.2188 13.4999L16.8188 8.8999L18.2188 10.2999L12.2188 16.2999Z"
+                                fill="#4E5B60"
+                            />
+                        </svg>
                     </div>
-                    {errors.insurer && <p className="text-red-500 text-xs mt-1">{errors.insurer}</p>}
+                    {errors.preferredInsurer && (
+                        <p className="text-red-500 text-xs mt-1">{errors.preferredInsurer}</p>
+                    )}
 
-                    {isOpen && (
+                    {isPrefInsurerOpen && (
                         <div className="absolute z-10 w-full bg-white border rounded mt-1 max-h-60 overflow-y-auto shadow-lg">
                             <input
                                 type="text"
                                 className="w-full p-2 border-b outline-none text-sm"
-                                placeholder="Search Insurer..."
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search Insurance Companies..."
+                                value={prefSearch}
+                                onChange={(e) => setPrefSearch(e.target.value)}
                                 autoFocus
                             />
-                            {filteredCompanies.length > 0 ? (
-                                filteredCompanies.map((company, index) => (
-                                    <div
-                                        key={index}
-                                        className="p-2 hover:bg-blue-100 cursor-pointer text-sm"
-                                        onClick={() => handleSelect(company)}
-                                    >
-                                        {company}
-                                    </div>
-                                ))
-                            ) : (
-                                <div className="p-2 text-gray-500 text-sm">No results found.</div>
-                            )}
+                            <div className="max-h-48 overflow-y-auto">
+                                {filteredPrefCompanies.length > 0 ? (
+                                    filteredPrefCompanies.map((company, index) => (
+                                        <label 
+                                            key={index} 
+                                            className="flex items-center p-2 hover:bg-blue-50 cursor-pointer"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={formData.preferredInsurer.includes(company)}
+                                                onChange={() => handlePrefInsurerToggle(company)}
+                                                className="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer"
+                                            />
+                                            <span className="text-sm">{company}</span>
+                                        </label>
+                                    ))
+                                ) : (
+                                    <div className="p-2 text-gray-500 text-sm">No results found.</div>
+                                )}
+                            </div>
                         </div>
                     )}
                 </div>
@@ -489,23 +540,66 @@ const HeroHealth = () => {
                     {errors.currentInsurer && <p className="text-red-500 text-xs mt-1">{errors.currentInsurer}</p>}
                 </div>
                 
-                <div className="relative">
-                    <select
-                        name="preferredInsurer"
-                        className={`w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-[13px] font-semibold text-[#22272BCC] appearance-none pr-8 focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.preferredInsurer ? 'border border-red-500' : ''} cursor-pointer`}
-                        value={formData.preferredInsurer}
-                        onChange={handleChange}
-                        required
+                {/* Preferred Insurer - Multi-select Dropdown */}
+                <div className="relative" ref={prefDropdownRef}>
+                    <div
+                        className={`w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-[13px] font-semibold text-[#22272BCC] border-2 ${errors.preferredInsurer ? 'border-red-500' : 'border-white hover:border-blue-400'} cursor-pointer flex justify-between items-center`}
+                        onClick={() => setIsPrefInsurerOpen(!isPrefInsurerOpen)}
                     >
-                        <option value="">Preferred Insurance Company</option>
-                        {insuranceCompanies.map((company, index) => (
-                            <option key={index} value={company}>{company}</option>
-                        ))}
-                    </select>
-                    <svg className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 cursor-pointer" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                        <path d="M12.2188 16.2999L6.21875 10.2999L7.61875 8.8999L12.2188 13.4999L16.8188 8.8999L18.2188 10.2999L12.2188 16.2999Z" fill="#4E5B60" />
-                    </svg>
-                    {errors.preferredInsurer && <p className="text-red-500 text-xs mt-1">{errors.preferredInsurer}</p>}
+                        <span>
+                            {formData.preferredInsurer.length > 0 
+                                ? formData.preferredInsurer.join(", ")
+                                : "Preferred Insurance Company"}
+                        </span>
+                        <svg
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                        >
+                            <path
+                                d="M12.2188 16.2999L6.21875 10.2999L7.61875 8.8999L12.2188 13.4999L16.8188 8.8999L18.2188 10.2999L12.2188 16.2999Z"
+                                fill="#4E5B60"
+                            />
+                        </svg>
+                    </div>
+                    {errors.preferredInsurer && (
+                        <p className="text-red-500 text-xs mt-1">{errors.preferredInsurer}</p>
+                    )}
+
+                    {isPrefInsurerOpen && (
+                        <div className="absolute z-10 w-full bg-white border rounded mt-1 max-h-60 overflow-y-auto shadow-lg">
+                            <input
+                                type="text"
+                                className="w-full p-2 border-b outline-none text-sm"
+                                placeholder="Search Insurance Companies..."
+                                value={prefSearch}
+                                onChange={(e) => setPrefSearch(e.target.value)}
+                                autoFocus
+                            />
+                            <div className="max-h-48 overflow-y-auto">
+                                {filteredPrefCompanies.length > 0 ? (
+                                    filteredPrefCompanies.map((company, index) => (
+                                        <label 
+                                            key={index} 
+                                            className="flex items-center p-2 hover:bg-blue-50 cursor-pointer"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={formData.preferredInsurer.includes(company)}
+                                                onChange={() => handlePrefInsurerToggle(company)}
+                                                className="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer"
+                                            />
+                                            <span className="text-sm">{company}</span>
+                                        </label>
+                                    ))
+                                ) : (
+                                    <div className="p-2 text-gray-500 text-sm">No results found.</div>
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </div>
                 
                 <div className="md:col-span-2">

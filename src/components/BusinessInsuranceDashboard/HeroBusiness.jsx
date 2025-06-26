@@ -126,24 +126,24 @@ const HeroBusiness = () => {
       </div>
     </form>
 
-    {/* Desktop Image */}
-    <div className="hidden lg:block absolute top-[10%] right-[10%] z-10 max-w-[55%]">
-      <img
-        src="/images/Business home.png"
-        alt="Shop Illustration"
-        className="object-contain w-full h-auto max-h-[550px]"
-      />
+      {/* Desktop Image */}
+      <div className="hidden lg:block absolute top-[10%] right-[0%] z-10 max-w-[60%]">
+        <img
+          src="/images/Business home.png"
+          alt="Shop Illustration"
+          className="object-contain w-full h-auto max-h-[550px]"
+        />
+      </div>
+      {/* Mobile Image */}
+      <div className="lg:hidden w-full mt-6 flex justify-center z-0 mb-5">
+        <img
+          src="/images/Business home.png"
+          alt="Shop Illustration"
+          className="object-contain w-full max-w-md h-auto"
+        />
+      </div>
     </div>
-    {/* Mobile Image */}
-    <div className="lg:hidden w-full mt-6 flex justify-center z-0 mb-5">
-      <img
-        src="/images/Business home.png"
-        alt="Shop Illustration"
-        className="object-contain w-full max-w-md h-auto"
-      />
-    </div>
-  </div>
-</section>
+  </section>
 
       {/*Hero Section End*/}
       <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />

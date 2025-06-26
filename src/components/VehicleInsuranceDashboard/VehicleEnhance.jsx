@@ -41,17 +41,6 @@ const VehicleEnhance = () => {
         }
     ];
 
-    const insuranceCards1 = [
-        {
-            title: "Personal Accident Cover",
-            description: 'This add-on ensures financial compensation to the vehicle owner in case of accidental death or partial/permanent disability. It also covers hospitalization costs arising from such incidents, providing peace of mind for both the driver and their family.',
-        },
-        {
-            title: "Engine Protection Cover",
-            description: `If your vehicle's engine suffers damage due to waterlogging, flooding, or similar situations, this cover protects you against the repair costs of engine-related damage, even if it happens after the incident (also known as consequential loss).`,
-        }
-    ]
-
 
     return (
         <>
@@ -72,24 +61,10 @@ const VehicleEnhance = () => {
                 </div>
 
                 {/* Cards Container Desktop */}
-                <div className="hidden md:grid md:grid-cols-3 gap-8 md:gap-12 px-4 w-full">
+                <div className="grid md:grid-cols-3 gap-8 md:gap-12 px-4 w-full">
                     {insuranceCards.map((card, index) => (
                         <div key={index} className="flex flex-col items-center max-w-sm mx-auto">
-                        <h3 className="text-[16px] md:text-[20px] font-semibold text-[#222] mb-4">
-                            {card.title}
-                        </h3>
-                        <p className="text-[#22272BCC] text-[14px] md:text-[15px] leading-relaxed">
-                            {card.description}
-                        </p>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Cards Container Mobile */}
-                <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 px-4 w-full">
-                    {insuranceCards1.map((card, index) => (
-                        <div key={index} className="flex flex-col items-center max-w-sm mx-auto">
-                        <h3 className="text-[16px] md:text-[20px] font-semibold text-[#222] mb-4">
+                        <h3 className="text-[16px] md:text-[20px] font-semibold text-[#5F88EC] mb-4">
                             {card.title}
                         </h3>
                         <p className="text-[#22272BCC] text-[14px] md:text-[15px] leading-relaxed">

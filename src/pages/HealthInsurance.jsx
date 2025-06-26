@@ -6,6 +6,7 @@ import PolicyCoverHealth from "../components/HealthInsuranceDashboard/PolicyCove
 import HealthPoints from "../components/HealthInsuranceDashboard/HealthPoints";
 import HealthBenefits from "../components/HealthInsuranceDashboard/HealthBenefits";
 import Footer from "../components/MainDashboard/Footer";
+import HealthInsPartners from "../components/HealthInsuranceDashboard/HealthInsPartners";
 
 const HealthInsurance = () => {
   
@@ -16,6 +17,7 @@ const HealthInsurance = () => {
     <TypeHealth/>
     <PolicyCoverHealth/>
     <HealthPoints/>
+    <HealthInsPartners/>
     <HealthBenefits/>
     <Footer />
     </>

@@ -29,17 +29,6 @@ const HealthPoints = () => {
         }
     ];
 
-    const points1 = [
-        {
-        title: "Insurance Cover",
-        description: "With medical expenses rising steadily, it’s important to choose a health insurance plan that provides adequate coverage when you need it. Opting for a policy with a sum insured of ₹10 lakh or more is considered a wise choice for sufficient financial protection."
-        },
-        {
-        title: "Room Rent",
-        description: "Room rent is one of the most crucial aspects of any health insurance policy, as it directly impacts your claim eligibility. It’s advisable to choose a policy that offers at least a Single Private Room and, ideally, has no room rent restrictions at all."
-        },
-    ]
-
     return (
         <>
         {/* Health Insuarance Point Start */}
@@ -60,27 +49,13 @@ const HealthPoints = () => {
                 </h2>
 
                 {/* Content Grid Desktop */}
-                <div className="hidden lg:grid grid-cols-1 lg:grid-cols-2 gap-y-5 lg:gap-y-8 lg:gap-x-24 max-w-5xl w-full px-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-5 lg:gap-y-8 lg:gap-x-24 max-w-5xl w-full px-4">
                     {points.map((point, index) => (
                     <div key={index} className="flex flex-col">
-                    <h3 className="md:text-[18px] text-[14px] font-semibold text-[#222222] mb-2">
+                    <h3 className="md:text-[18px] text-[14px] font-semibold mb-2 text-[#5F88EC]">
                         {point.title}
                     </h3>
                     <p className="text-[#22272BCC] md:text-[14px] text-[12px] leading-relaxed">
-                        {point.description}
-                    </p>
-                    </div>
-                ))}
-                </div>
-
-                {/* Content Grid Mobile */}
-                <div className="grid lg:hidden grid-cols-1 lg:grid-cols-2 gap-y-10 lg:gap-y-16 lg:gap-x-24 max-w-5xl w-full px-4 text-center">
-                {points1.map((point, index) => (
-                    <div key={index} className="flex flex-col">
-                    <h3 className="md:text-[20px] text-[16px] font-semibold text-[#222222] mb-2">
-                        {point.title}
-                    </h3>
-                    <p className="text-[#22272BCC] md:text-[15px] text-[14px] leading-relaxed">
                         {point.description}
                     </p>
                     </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import MobileGridBenefitHealth from "./MobileGridBenefitHealth";
  
 const HealthBenefits = () => {
 
@@ -26,17 +27,6 @@ const HealthBenefits = () => {
         {
         title: "Tax Benefit",
         description: "The premium you pay for health insurance qualifies for tax benefits under Section 80D of the Income Tax Act. You can claim a tax deduction of up to ₹75,000 in a financial year, helping you save on taxes."
-        }
-    ];
-
-    const benefits1 = [
-        {
-        title: "Financial Security",
-        description: "A single critical illness or major accident can drain your lifetime savings. Health insurance protects your finances by providing essential financial support during medical emergencies, helping you preserve your hard-earned money."
-        },
-        {
-        title: "Mental Peace",
-        description: "Health insurance ensures you don’t have to stress about covering hospital expenses during emergencies like accidents or illnesses. It provides peace of mind, knowing you’re financially protected for the future."
         }
     ];
 
@@ -77,18 +67,7 @@ const HealthBenefits = () => {
                 </div>
 
                 {/* Content Grid Mobile */}
-                <div className="grid md:hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 md:gap-x-12 lg:gap-x-20 lg:gap-y-16 max-w-7xl w-full px-4 text-center">
-                {benefits1.map((benefit, index) => (
-                    <div key={index} className="flex flex-col text-white">
-                    <h3 className="text-[20px] md:text-[24px] font-semibold mb-2">
-                        {benefit.title}
-                    </h3>
-                    <p className="text-[14px] md:text-[20px] leading-relaxed opacity-90">
-                        {benefit.description}
-                    </p>
-                    </div>
-                ))}
-                </div>
+                <MobileGridBenefitHealth benefits={benefits} />
             </section>
         </div>
 
