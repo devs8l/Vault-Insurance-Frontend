@@ -5,6 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import LifeForm from './Contact/LifeForm';
 import HealthForm from './Contact/HeathForm';
 import BusinessForm from './Contact/BusinessForm';
+import VehicleForm from "./Contact/VechicleForm/VehicleForm"
+
 
 // Button Component
 const Button = ({
@@ -102,6 +104,8 @@ const Contact = () => {
         return <HealthForm />
       case 'business':
         return <BusinessForm />
+      case 'vehicle':
+        return <VehicleForm />
       default:
         return (
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -187,7 +191,7 @@ const Contact = () => {
 
               {/* Buttons for form switching */}
               <div className="flex flex-wrap gap-4 mb-6">
-                {["contact", "life", "health", "business"].map((type) => (
+                {["contact", "life", "health","vehicle", "business"].map((type) => (
                   <button
                     key={type}
                     onClick={() => setActiveForm(type)}

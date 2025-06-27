@@ -1,13 +1,12 @@
-// components/HeroVehicle.jsx
 import React, { useState } from "react";
-import VehicleInsuranceForm from "./NewVehicleForm/VehicleInsuranceForm";
-import VehicleInformationForm from "./NewVehicleForm/VehicleInformationForm";
-import AddOnCoversForm from "./NewVehicleForm/AddOnCoversForm";
-import OldVehicleForm from "./OldVehicleInsauranceForm/OldVehicleForm";
-import OldInformationForm from "./OldVehicleInsauranceForm/OldInformationForm";
-import OldAddCover from "./OldVehicleInsauranceForm/OldAddCover";
+import NewFirstForm from "./Forms/New/NewFirstForm";
+import NewSecondForm from "./Forms/New/NewSecondFrom";
+import NewLastForm from "./Forms/New/NewLastForm";
+import OldFirstForm from "./Forms/Old/OldFirstForm";
+import OldSecondForm from "./Forms/Old/OldSecondForm";
 
-const HeroVehicle = () => {
+
+const VehicleForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [policyType, setPolicyType] = useState("new");
 
@@ -27,11 +26,17 @@ const HeroVehicle = () => {
     const newFormStep = () => {
         switch (currentStep) {
             case 1:
-                return <VehicleInsuranceForm onNext={handleNextStep} setPolicyType={setPolicyType} policyType={policyType} currentStep={currentStep} />;
-            case 2:
-                // Pass currentStep and policyType to VehicleInformationForm
                 return (
-                    <VehicleInformationForm
+                    <NewFirstForm
+                        onNext={handleNextStep}
+                        setPolicyType={setPolicyType}
+                        policyType={policyType}
+                        currentStep={currentStep}
+                    />
+                );
+            case 2:
+                return (
+                    <NewSecondForm
                         onPrevious={handlePreviousStep}
                         onNext={handleNextStep}
                         policyType={policyType}
@@ -39,9 +44,8 @@ const HeroVehicle = () => {
                     />
                 );
             case 3:
-                // Pass currentStep and policyType to AddOnCoversForm
                 return (
-                    <AddOnCoversForm
+                    <NewLastForm
                         onPrevious={handlePreviousStep}
                         onGetQuote={handleGetQuote}
                         policyType={policyType}
@@ -50,7 +54,7 @@ const HeroVehicle = () => {
                 );
             case 4:
                 return (
-                    <div className="bg-white rounded-3xl shadow-lg w-full p-8 lg:p-10 relative text-center">
+                    <div className="bg-white rounded-3xl shadow-lg w-full p-8 lg:p-10 text-center">
                         <h3 className="text-[28px] font-semibold text-[#222] mb-4">Thank You!</h3>
                         <p className="text-[16px] text-[#22272BCC]">Your request for a free quote has been submitted successfully.</p>
                         <button
@@ -62,18 +66,31 @@ const HeroVehicle = () => {
                     </div>
                 );
             default:
-                return <VehicleInsuranceForm onNext={handleNextStep} setPolicyType={setPolicyType} policyType={policyType} currentStep={currentStep} />;
+                return (
+                    <NewFirstForm
+                        onNext={handleNextStep}
+                        setPolicyType={setPolicyType}
+                        policyType={policyType}
+                        currentStep={currentStep}
+                    />
+                );
         }
     };
 
     const oldFormStep = () => {
         switch (currentStep) {
             case 1:
-                return <OldVehicleForm onNext={handleNextStep} setPolicyType={setPolicyType} policyType={policyType} currentStep={currentStep} />;
-            case 2:
-                // Pass currentStep and policyType to OldInformationForm
                 return (
-                    <OldInformationForm
+                    <OldFirstForm
+                        onNext={handleNextStep}
+                        setPolicyType={setPolicyType}
+                        policyType={policyType}
+                        currentStep={currentStep}
+                    />
+                );
+            case 2:
+                return (
+                    <OldSecondForm
                         onPrevious={handlePreviousStep}
                         onNext={handleNextStep}
                         policyType={policyType}
@@ -81,7 +98,6 @@ const HeroVehicle = () => {
                     />
                 );
             case 3:
-                // Pass currentStep and policyType to OldAddCover
                 return (
                     <OldAddCover
                         onPrevious={handlePreviousStep}
@@ -92,7 +108,7 @@ const HeroVehicle = () => {
                 );
             case 4:
                 return (
-                    <div className="bg-white rounded-3xl shadow-lg w-full p-8 lg:p-10 relative text-center">
+                    <div className="bg-white rounded-3xl shadow-lg w-full p-8 lg:p-10 text-center">
                         <h3 className="text-[28px] font-semibold text-[#222] mb-4">Thank You!</h3>
                         <p className="text-[16px] text-[#22272BCC]">Your request for a free quote has been submitted successfully.</p>
                         <button
@@ -104,29 +120,24 @@ const HeroVehicle = () => {
                     </div>
                 );
             default:
-                // Ensure default case also passes props
-                return <OldInformationForm onNext={handleNextStep} setPolicyType={setPolicyType} policyType={policyType} currentStep={currentStep} />;
+                return (
+                    <OldFirstForm
+                        onNext={handleNextStep}
+                        setPolicyType={setPolicyType}
+                        policyType={policyType}
+                        currentStep={currentStep}
+                    />
+                );
         }
     };
 
     return (
-        <>
-            <section className="relative w-full py-12 px-4 md:px-12 lg:px-24 bg-[linear-gradient(250deg,#24BDED_0%,#47B7FF_100%)]">
-                <div className="flex flex-col-reverse lg:flex-row items-center justify-between relative 2xl:ml-[20%]">
-                    {policyType === "new" ? newFormStep() : oldFormStep()}
-                    <div
-                        className="w-full relative h-auto mb-3 mx-0 z-20 lg:top-[50px] lg:right-10 2xl:top-[20px]"
-                    >
-                        <img
-                            src="/images/Vehicle Insurance.png"
-                            alt="vehicle-insurance"
-                            className="object-contain w-full lg:w-[600px] lg:h-[550px] 2xl:w-[700px] 2xl:h-[600px]"
-                        />
-                    </div>
-                </div>
-            </section>
-        </>
+        <section    >
+            <div className="flex flex-col items-center justify-center">
+                {policyType === "new" ? newFormStep() : oldFormStep()}
+            </div>
+        </section>
     );
 };
 
-export default HeroVehicle;
+export default VehicleForm;

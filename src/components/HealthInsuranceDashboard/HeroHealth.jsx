@@ -109,17 +109,33 @@ const HeroHealth = () => {
 
     const validateForm = () => {
         const newErrors = {};
-        const requiredFields = policyType === "new" ? 
-            ['name', 'email', 'phone', 'insurer', 'pincode'] : 
-            ['name', 'phone', 'currentInsurer', 'preferredInsurer'];
         
-        requiredFields.forEach(field => {
-            if (!formData[field] || (field === 'preferredInsurer' && formData[field].length === 0)) {
+        // Common required fields for both policy types
+        const commonRequiredFields = ['name', 'phone'];
+        
+        // Policy type specific required fields
+        const policySpecificFields = policyType === "new" 
+            ? ['email', 'pincode'] 
+            : ['currentInsurer'];
+        
+        // Check all required fields
+        [...commonRequiredFields, ...policySpecificFields].forEach(field => {
+            if (!formData[field]) {
                 newErrors[field] = "This field is required";
             }
         });
 
-        // Email validation
+        // For new policies, check if either insurer or preferredInsurer is selected
+        if (policyType === "new" && !formData.insurer && formData.preferredInsurer.length === 0) {
+            newErrors.insurer = "Please select at least one insurance company";
+        }
+
+        // For renew policies, check preferredInsurer
+        if (policyType === "renew" && formData.preferredInsurer.length === 0) {
+            newErrors.preferredInsurer = "Please select at least one preferred company";
+        }
+
+        // Email validation (only for new policies)
         if (policyType === "new" && formData.email && !/^\S+@\S+\.\S+$/.test(formData.email)) {
             newErrors.email = "Please enter a valid email";
         }
@@ -129,8 +145,8 @@ const HeroHealth = () => {
             newErrors.phone = "Please enter a valid 10-digit phone number";
         }
 
-        // Pincode validation
-        if (formData.pincode && !/^[0-9]{6}$/.test(formData.pincode)) {
+        // Pincode validation (only for new policies)
+        if (policyType === "new" && formData.pincode && !/^[0-9]{6}$/.test(formData.pincode)) {
             newErrors.pincode = "Please enter a valid 6-digit pincode";
         }
 
@@ -142,7 +158,6 @@ const HeroHealth = () => {
         e.preventDefault();
         setIsSubmitting(true);
         
-        // Validate form first
         if (!validateForm()) {
             setIsSubmitting(false);
             toast.error("Please fix the errors in the form");
@@ -157,15 +172,22 @@ const HeroHealth = () => {
             formDataObj.append('phone', formData.phone);
             formDataObj.append('policy_type', policyType);
 
-            // Add fields based on policy type
             if (policyType === "new") {
                 formDataObj.append('adults', formData.adults);
                 formDataObj.append('children', formData.children);
-                formDataObj.append('insurer', formData.insurer);
-                formDataObj.append('tenure', formData.tenure);
                 formDataObj.append('pincode', formData.pincode);
                 formDataObj.append('email', formData.email);
                 
+                // Add insurer if selected
+                if (formData.insurer) {
+                    formDataObj.append('insurer', formData.insurer);
+                }
+                
+                // Add preferred insurers if selected
+                formData.preferredInsurer.forEach(insurer => {
+                    formDataObj.append('preferred_insurer[]', insurer);
+                });
+
                 if (formData.claimStatus) {
                     formDataObj.append('claim_status', formData.claimStatus);
                 }
@@ -186,12 +208,6 @@ const HeroHealth = () => {
                 }
             }
 
-            // Debug: Log what's being sent
-            console.log('Submitting form data:');
-            for (let [key, value] of formDataObj.entries()) {
-                console.log(key, value);
-            }
-
             const response = await submitHealthInsuranceLead(formDataObj, true);
             
             if (!response.success) {
@@ -203,7 +219,7 @@ const HeroHealth = () => {
                 { className: 'bg-green-50 text-green-800 rounded-md shadow-md border border-green-200 px-4 py-2 font-medium' }
             );
             
-            // Reset form after successful submission
+            // Reset form
             setFormData({
                 adults: 1,
                 children: 0,
@@ -235,7 +251,6 @@ const HeroHealth = () => {
             setIsSubmitting(false);
         }
     };
-
     const renderNewPolicyForm = () => (
         <>
             <div className="flex gap-6 mb-6">
@@ -322,9 +337,10 @@ const HeroHealth = () => {
             {/* Select Fields */}
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4">
                 {/* Preferred Insurer - Multi-select Dropdown */}
+                
                 <div className="relative" ref={prefDropdownRef}>
                     <div
-                        className={`w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-[13px] font-semibold text-[#22272BCC] border-2 ${errors.preferredInsurer ? 'border-red-500' : 'border-white hover:border-blue-400'} cursor-pointer flex justify-between items-center`}
+                        className={`w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-[13px] font-semibold text-[#22272BCC] border-2 ${errors.insurer ? 'border-red-500' : 'border-white hover:border-blue-400'} cursor-pointer flex justify-between items-center`}
                         onClick={() => setIsPrefInsurerOpen(!isPrefInsurerOpen)}
                     >
                         <span>
@@ -345,8 +361,8 @@ const HeroHealth = () => {
                             />
                         </svg>
                     </div>
-                    {errors.preferredInsurer && (
-                        <p className="text-red-500 text-xs mt-1">{errors.preferredInsurer}</p>
+                    {errors.insurer && (
+                        <p className="text-red-500 text-xs mt-1">{errors.insurer}</p>
                     )}
 
                     {isPrefInsurerOpen && (
