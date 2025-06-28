@@ -51,7 +51,7 @@ const VehiclePoints = () => {
                     <div className="lg:grid grid-cols-1 lg:grid-cols-2 gap-y-5 lg:gap-y-8 lg:gap-x-24 max-w-5xl w-full px-4">
                         {points.map((point, index) => (
                             <div key={index} className="flex flex-col mb-3">
-                            <h3 className="md:text-[18px] text-[14px] font-semibold text-[#5F88EC]">
+                            <h3 className="md:text-[18px] text-[14px] font-semibold text-[#5F88EC] mb-3">
                                 {point.title}
                             </h3>
                             <p className="text-[#22272BCC] md:text-[14px] text-[12px] leading-relaxed">

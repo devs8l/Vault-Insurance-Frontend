@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const NewLastForm = ({ onPrevious, onGetQuote }) => {
-    const [selectedAddOns, setSelectedAddOns] = useState([]);
+const NewLastForm = ({ onPrevious, onGetQuote, formData, setFormData }) => {
+    const selectedAddOns = formData.selectedAddOns || [];
     const [isAddOnDropdownOpen, setIsAddOnDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -19,21 +19,19 @@ const NewLastForm = ({ onPrevious, onGetQuote }) => {
 
     const handleAddOnChange = (e) => {
         const { value, checked } = e.target;
-        if (checked) {
-            setSelectedAddOns((prev) => [...prev, value]);
-        } else {
-            setSelectedAddOns((prev) => prev.filter((addOn) => addOn !== value));
-        }
+        setFormData((prev) => ({
+            ...prev,
+            selectedAddOns: checked
+                ? [...(prev.selectedAddOns || []), value]
+                : (prev.selectedAddOns || []).filter((addOn) => addOn !== value)
+        }));
     };
 
     const handleGetQuote = (e) => {
         e.preventDefault();
-        console.log("Add-on Covers Submitted!");
-        console.log("Selected Add-Ons:", selectedAddOns);
-        if (onGetQuote) {
-            onGetQuote();
-        }
+        onGetQuote(); 
     };
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -46,10 +44,11 @@ const NewLastForm = ({ onPrevious, onGetQuote }) => {
     }, []);
 
     const getSelectedAddOnsText = () => {
-        if (selectedAddOns.length === 0) return "Select Add-On Covers";
+        if (!selectedAddOns.length) return "Select Add-On Covers";
         const names = selectedAddOns.map(id => availableAddOns.find(a => a.id === id)?.name);
         return names.join(', ');
     };
+
 
     const dropdownBtnClass =
         "w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base text-left focus:outline-none focus:border-blue-300 cursor-pointer flex items-center justify-between";

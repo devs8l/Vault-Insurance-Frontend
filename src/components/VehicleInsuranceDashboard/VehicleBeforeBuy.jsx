@@ -23,37 +23,34 @@ const VehicleBeforeBuy = () => {
 
     return (
         <>
-        {/*BeforeBuy Vehicle Cover Section start*/ }
+        <section className="w-full bg-[#F4F8FB] px-auto">
+                <div className="w-full md:mx-auto flex flex-col lg:flex-row items-center">
+                    {/* Left Content - Text */}
+                    <div className="w-full mx-2 md:mx-0 px-6 md:px-8 lg:px-16 "> 
+                        <h2 className="text-[24px] md:text-[32px] lg:text-[36px] font-semibold text-[#22272B] mb-6">
+                            Points to Consider Before you Buy <br className="hidden md:block" />
+                            Car Insurance Policy Add-On
+                        </h2>
 
-        <section className="w-full bg-[#F4F8FB] mx-2 md:mx-0 px-4 md:px-8 lg:px-16">
-            <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center">
-                {/* Left Content - Text */}
-                <div className="w-full">
-                <h2 className="text-[24px] md:text-[32px] lg:text-[36px] font-semibold text-[#22272B] mb-6">
-                    Points to Consider Before you Buy <br className="hidden md:block" />
-                    Car Insurance Policy Add-On
-                </h2>
+                        <ul className="list-disc pl-5 space-y-4 text-[#222] text-[14px] md:text-[15px] leading-relaxed">
+                            {coverageItems1.map((item, index) => (
+                            <li key={index}>{item.text}</li>
+                            ))}
+                        </ul>
+                    </div>
 
-                <ul className="list-disc pl-5 space-y-4 text-[#222] text-[14px] md:text-[15px] leading-relaxed">
-                    {coverageItems1.map((item, index) => (
-                    <li key={index}>{item.text}</li>
-                    ))}
-                </ul>
+                
+                    <div className="flex justify-center lg:justify-end">
+                        <img
+                            src="/images/Car-blue2.png"
+                            alt="Blue Car"
+                            className="w-full object-contain lg:max-w-none" 
+                        />
+                    </div>
                 </div>
-
-                {/* Right Content - Car Image */}
-                <div className="w-full r-0 flex justify-center">
-                <img
-                    src="/images/Car-blue2.png"
-                    alt="Blue Car"
-                    className="w-full h-auto object-contain"
-                />
-                </div>
-            </div>
             </section>
-
-        {/*BeforeBuy Vehicle Cover Section end */ }
-</>
+            {/*BeforeBuy Vehicle Cover Section end */ }
+    </>
     )
 }
 

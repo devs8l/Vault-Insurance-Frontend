@@ -1,15 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const NewSecondForm = ({ onPrevious, onNext }) => {
-    const [vehicleCategory, setVehicleCategory] = useState("");
-    const [vehicleBrand, setVehicleBrand] = useState("");
-    const [vehicleModel, setVehicleModel] = useState("");
-    const [fuelType, setFuelType] = useState("");
-    const [registrationYear, setRegistrationYear] = useState("");
-    const [coverageType, setCoverageType] = useState("");
-    const [preferredCompanies, setPreferredCompanies] = useState([]);
+const NewSecondForm = ({ onPrevious, onNext , formData, setFormData }) => {
     const [showDropdown, setShowDropdown] = useState(false);
-
     const dropdownRef = useRef(null);
 
     const insuranceCompanies = [
@@ -20,18 +12,23 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
         "Chola Manadalam",
     ];
 
+    const handleChange = (field, value) => setFormData(prev => ({ ...prev, [field]: value }));
+
     const handleCompanyChange = (e) => {
         const { value, checked } = e.target;
-        setPreferredCompanies((prev) =>
-            checked ? [...prev, value] : prev.filter((c) => c !== value)
-        );
+        setFormData((prev) => ({
+            ...prev,
+            preferredCompanies: checked
+                ? [...prev.preferredCompanies, value]
+                : prev.preferredCompanies.filter((c) => c !== value)
+        }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Vehicle Information Submitted!");
-        onNext && onNext();
+        onNext();
     };
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -61,15 +58,15 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
                 <div className="flex-1 h-1 bg-gray-200 rounded-full"></div>
             </div>
 
-            <h3 className="text-[20px] font-semibold text-[#222] mb-6">Vehicle Information</h3>
+            <h3 className="text-[20px] font-semibold text-[#222] mb-6">New Vehicle Information</h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {/* Vehicle Category */}
                 <select
                     id="vehicleCategory"
                     className={inputClass}
-                    value={vehicleCategory}
-                    onChange={(e) => setVehicleCategory(e.target.value)}
+                    value={formData.vehicleCategory}
+                    onChange={(e) => handleChange("vehicleCategory",e.target.value)}
                     required
                 >
                     <option value="" disabled>Vehicle Category</option>
@@ -89,8 +86,8 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
                     id="vehicleBrand"
                     className={inputClass}
                     placeholder="Vehicle Brand"
-                    value={vehicleBrand}
-                    onChange={(e) => setVehicleBrand(e.target.value)}
+                    value={formData.vehicleBrand}
+                    onChange={(e) => handleChange("vehicleBrand", e.target.value)}
                     required
                 />
 
@@ -99,8 +96,8 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
                     id="vehicleModel"
                     className={inputClass}
                     placeholder="Vehicle Model"
-                    value={vehicleModel}
-                    onChange={(e) => setVehicleModel(e.target.value)}
+                    value={formData.vehicleModel}
+                    onChange={(e) => handleChange("vehicleModel",e.target.value)}
                     required
                 />
 
@@ -108,8 +105,8 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
                 <select
                     id="fuelType"
                     className={inputClass}
-                    value={fuelType}
-                    onChange={(e) => setFuelType(e.target.value)}
+                    value={formData.fuelType}
+                    onChange={(e) => handleChange("fuelType", e.target.value)}
                     required
                 >
                     <option value="" disabled>Fuel Type</option>
@@ -124,8 +121,8 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
                 <select
                     id="registrationYear"
                     className={inputClass}
-                    value={registrationYear}
-                    onChange={(e) => setRegistrationYear(e.target.value)}
+                    value={formData.registrationYear}
+                    onChange={(e) => handleChange("registrationYear", e.target.value)}
                     required
                 >
                     <option value="" disabled>Est. Registration Year</option>
@@ -138,8 +135,8 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
                 <select
                     id="coverageType"
                     className={inputClass}
-                    value={coverageType}
-                    onChange={(e) => setCoverageType(e.target.value)}
+                    value={formData.coverageType}
+                    onChange={(e) => handleChange("coverageType", e.target.value)}
                     required
                 >
                     <option value="" disabled>Coverage Type</option>
@@ -157,8 +154,8 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
                             onClick={() => setShowDropdown(!showDropdown)}
                         >
                             <span>
-                                {preferredCompanies.length > 0
-                                    ? preferredCompanies.join(", ")
+                                {formData.preferredCompanies.length > 0
+                                    ? formData.preferredCompanies.join(", ")
                                     : "Preferred Insurance Companies"}
                             </span>
                             <svg className="fill-current h-4 w-4" viewBox="0 0 20 20">
@@ -173,7 +170,7 @@ const NewSecondForm = ({ onPrevious, onNext }) => {
                                         <input
                                             type="checkbox"
                                             value={company}
-                                            checked={preferredCompanies.includes(company)}
+                                            checked={formData.preferredCompanies.includes(company)}
                                             onChange={handleCompanyChange}
                                             className="accent-[#6290FF] mr-2"
                                         />

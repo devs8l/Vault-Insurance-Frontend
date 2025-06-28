@@ -1,16 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
-const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
-    const [vehicleCategory, setVehicleCategory] = useState("");
-    const [registrationNumber, setRegistrationNumber] = useState("");
-    const [registrationYear, setRegistrationYear] = useState("");
-    const [prevPolicyExpiry, setPrevPolicyExpiry] = useState("");
-    const [previousClaims, setPreviousClaims] = useState("");
-    const [fuelType, setFuelType] = useState("");
-    const [coverageType, setCoverageType] = useState("");
-    const [preferredCompanies, setPreferredCompanies] = useState([]);
-    const [showDropdown, setShowDropdown] = useState(false);
+const OldSecondForm = ({ formData, setFormData, onPrevious, onNext, currentStep }) => {
     const dropdownRef = useRef(null);
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const insuranceCompanies = [
         "ICICI Lombard General Insurance",
@@ -19,13 +11,6 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
         "Future Generali India Insurance",
         "Chola Manadalam",
     ];
-
-    const handleCompanyChange = (e) => {
-        const { value, checked } = e.target;
-        setPreferredCompanies((prev) =>
-            checked ? [...prev, value] : prev.filter((c) => c !== value)
-        );
-    };
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -41,18 +26,21 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
     const years = Array.from({ length: currentYear - 1999 }, (_, i) => 2000 + i).reverse();
     const prevExpiryYears = Array.from({ length: 7 }, (_, i) => currentYear - 5 + i);
 
+    const handleCompanyChange = (e) => {
+        const { value, checked } = e.target;
+        const updated = checked
+            ? [...formData.preferredCompanies, value]
+            : formData.preferredCompanies.filter((c) => c !== value);
+        setFormData({ ...formData, preferredCompanies: updated });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form data submitted", {
-            vehicleCategory,
-            registrationNumber,
-            registrationYear,
-            prevPolicyExpiry,
-            previousClaims,
-            fuelType,
-            coverageType,
-            preferredCompanies,
-        });
         onNext?.();
     };
 
@@ -68,14 +56,15 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
                 <div className={`flex-1 h-1 ${currentStep >= 3 ? "bg-[#6290FF]" : "bg-gray-200"} rounded-full`} />
             </div>
 
-            <h3 className="text-[20px] font-semibold text-[#222] mb-6">Vehicle Information</h3>
+            <h3 className="text-[20px] font-semibold text-[#222] mb-6">Old Vehicle Information</h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 <select
-                    value={vehicleCategory}
-                    onChange={(e) => setVehicleCategory(e.target.value)}
+                    name="vehicleCategory"
+                    value={formData.vehicleCategory}
+                    onChange={handleChange}
                     required
-                    className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
+                    className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px]"
                 >
                     <option value="" disabled>Vehicle Category</option>
                     <option value="two-wheeler">Two-Wheeler</option>
@@ -91,41 +80,41 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
 
                 <input
                     type="text"
+                    name="registrationNumber"
                     placeholder="Registration Number"
-                    value={registrationNumber}
-                    onChange={(e) => setRegistrationNumber(e.target.value)}
+                    value={formData.registrationNumber}
+                    onChange={handleChange}
                     required
-                    className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
+                    className="w-full h-14 px-4 border border-[#d9dde1] rounded-[16px]"
                 />
 
                 <select
-                    value={registrationYear}
-                    onChange={(e) => setRegistrationYear(e.target.value)}
+                    name="registrationYear"
+                    value={formData.registrationYear}
+                    onChange={handleChange}
                     required
-                    className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
+                    className="w-full h-14 px-4 border border-[#d9dde1] rounded-[16px]"
                 >
                     <option value="" disabled hidden>Registration Year</option>
-                    {years.map((y) => (
-                        <option key={y} value={y}>{y}</option>
-                    ))}
+                    {years.map((y) => <option key={y} value={y}>{y}</option>)}
                 </select>
 
                 <select
-                    value={prevPolicyExpiry}
-                    onChange={(e) => setPrevPolicyExpiry(e.target.value)}
-                    className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
+                    name="prevPolicyExpiry"
+                    value={formData.prevPolicyExpiry}
+                    onChange={handleChange}
+                    className="w-full h-14 px-4 border border-[#d9dde1] rounded-[16px]"
                 >
                     <option value="" disabled hidden>Prev. Policy Expiry</option>
-                    {prevExpiryYears.map((y) => (
-                        <option key={y} value={y}>{y}</option>
-                    ))}
+                    {prevExpiryYears.map((y) => <option key={y} value={y}>{y}</option>)}
                 </select>
 
                 <select
-                    value={previousClaims}
-                    onChange={(e) => setPreviousClaims(e.target.value)}
+                    name="previousClaims"
+                    value={formData.previousClaims}
+                    onChange={handleChange}
                     required
-                    className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
+                    className="w-full h-14 px-4 border border-[#d9dde1] rounded-[16px]"
                 >
                     <option value="" disabled hidden>Previous Claims</option>
                     <option value="yes">Yes</option>
@@ -133,10 +122,11 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
                 </select>
 
                 <select
-                    value={fuelType}
-                    onChange={(e) => setFuelType(e.target.value)}
+                    name="fuelType"
+                    value={formData.fuelType}
+                    onChange={handleChange}
                     required
-                    className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
+                    className="w-full h-14 px-4 border border-[#d9dde1] rounded-[16px]"
                 >
                     <option value="" disabled hidden>Fuel Type</option>
                     <option value="petrol">Petrol</option>
@@ -147,10 +137,11 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
                 </select>
 
                 <select
-                    value={coverageType}
-                    onChange={(e) => setCoverageType(e.target.value)}
+                    name="coverageType"
+                    value={formData.coverageType}
+                    onChange={handleChange}
                     required
-                    className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
+                    className="w-full h-14 px-4 border border-[#d9dde1] rounded-[16px]"
                 >
                     <option value="" disabled hidden>Coverage Type</option>
                     <option value="comprehensive">Comprehensive</option>
@@ -163,11 +154,11 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
                     <button
                         type="button"
                         onClick={() => setShowDropdown((prev) => !prev)}
-                        className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base text-left focus:outline-none focus:border-blue-300 cursor-pointer flex justify-between items-center"
+                        className="w-full h-14 px-4 border border-[#d9dde1] rounded-[16px] flex justify-between items-center text-left"
                     >
                         <span className="truncate">
-                            {preferredCompanies.length > 0
-                                ? preferredCompanies.join(", ")
+                            {formData.preferredCompanies.length > 0
+                                ? formData.preferredCompanies.join(", ")
                                 : "Preferred Insurance Companies"}
                         </span>
                         <svg className="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
@@ -181,7 +172,7 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
                                     <input
                                         type="checkbox"
                                         value={company}
-                                        checked={preferredCompanies.includes(company)}
+                                        checked={formData.preferredCompanies.includes(company)}
                                         onChange={handleCompanyChange}
                                         className="accent-[#6290FF] mr-2"
                                     />
@@ -197,13 +188,13 @@ const OldSecondForm = ({ onPrevious, onNext, policyType, currentStep }) => {
                 <button
                     type="button"
                     onClick={onPrevious}
-                    className="w-full sm:w-[180px] border border-[#62B3F0] text-[#62B3F0] font-semibold py-3 px-8 text-[18px] rounded-[10px] hover:bg-blue-50 transition-colors cursor-pointer"
+                    className="w-full sm:w-[180px] border border-[#62B3F0] text-[#62B3F0] font-semibold py-3 px-8 text-[18px] rounded-[10px] hover:bg-blue-50 transition-colors"
                 >
                     Previous
                 </button>
                 <button
                     type="submit"
-                    className="w-full sm:w-[180px] h-14 bg-gradient-to-r from-[#39b2ff] to-[#c465ea] text-white rounded-[16px] font-semibold text-lg hover:brightness-110 transition cursor-pointer"
+                    className="w-full sm:w-[180px] h-14 bg-gradient-to-r from-[#39b2ff] to-[#c465ea] text-white rounded-[16px] font-semibold text-lg hover:brightness-110"
                 >
                     Next
                 </button>

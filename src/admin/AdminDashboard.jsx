@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import { getLifeInsuranceLeads } from '../api/LifeApi';
-
+import { getAllOldVehicles, getAllNewVehicles } from '../api/VehicleApi';
+import { getHealthInsuranceLeads } from '../api/healthApi';
+import { getContactSubmissions } from '../api/contactApi';
+import { getBusinessQuotes } from '../api/businessApi';
 
 const AdminDashboard = () => {
   const [activityData, setActivityData] = useState([]);
@@ -12,7 +14,9 @@ const AdminDashboard = () => {
     contacts: 0,
     healthLeads: 0,
     businessQuotes: 0,
-    lifeLeads: 0
+    lifeLeads: 0,
+    oldVehicles: 0,
+    newVehicles: 0
   });
 
   useEffect(() => {
@@ -20,20 +24,24 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
         
-        // Fetch data from all endpoints including life insurance
-        const [contactsRes, businessRes, healthRes, lifeRes] = await Promise.all([
-          axios.get('https://vault-backend.vercel.app/api/contact'),
-          axios.get('https://vault-backend.vercel.app/api/business-quotes'),
-          axios.get('https://vault-backend.vercel.app/api/health-insurance-leads'),
-          getLifeInsuranceLeads()
+        // Fetch data from all endpoints
+        const [contactsRes, businessRes, healthRes, lifeRes, oldVehiclesRes, newVehiclesRes] = await Promise.all([
+          getContactSubmissions(),
+          getBusinessQuotes(),
+          getHealthInsuranceLeads(),
+          getLifeInsuranceLeads(),
+          getAllOldVehicles(),
+          getAllNewVehicles()
         ]);
 
         // Set stats
         setStats({
-          contacts: contactsRes.data.length,
-          healthLeads: healthRes.data.length,
-          businessQuotes: businessRes.data.length,
-          lifeLeads: lifeRes.length
+          contacts: contactsRes.length,
+          healthLeads: healthRes.length,
+          businessQuotes: businessRes.length,
+          lifeLeads: lifeRes.length,
+          oldVehicles: oldVehiclesRes.length,
+          newVehicles: newVehiclesRes.length
         });
 
         // Helper function to format date properly
@@ -54,7 +62,7 @@ const AdminDashboard = () => {
         };
 
         // Process data for recent activity feed
-        const contactsActivity = contactsRes.data.slice(0, 3).map(item => ({
+        const contactsActivity = contactsRes.slice(0, 3).map(item => ({
           id: item._id,
           action: "New contact form submission",
           time: formatDate(item.createdAt || item.created_at || new Date()),
@@ -62,7 +70,7 @@ const AdminDashboard = () => {
           type: 'contact'
         }));
 
-        const businessActivity = businessRes.data.slice(0, 3).map(item => ({
+        const businessActivity = businessRes.slice(0, 3).map(item => ({
           id: item._id,
           action: "New business quote submitted",
           time: formatDate(item.createdAt || item.created_at || new Date()),
@@ -70,7 +78,7 @@ const AdminDashboard = () => {
           type: 'business'
         }));
 
-        const healthActivity = healthRes.data.slice(0, 3).map(item => ({
+        const healthActivity = healthRes.slice(0, 3).map(item => ({
           id: item._id,
           action: "New health insurance lead",
           time: formatDate(item.createdAt || item.created_at || new Date()),
@@ -86,8 +94,31 @@ const AdminDashboard = () => {
           type: 'life'
         }));
 
+        const oldVehicleActivity = oldVehiclesRes.slice(0, 3).map(item => ({
+          id: item._id,
+          action: "old vehicle quote",
+          time: formatDate(item.createdAt || item.created_at || new Date()),
+          user: item.fullName || 'Anonymous',
+          type: 'oldVehicle'
+        }));
+
+        const newVehicleActivity = newVehiclesRes.slice(0, 3).map(item => ({
+          id: item._id,
+          action: "New vehicle quote",
+          time: formatDate(item.createdAt || item.created_at || new Date()),
+          user: item.fullName || 'Anonymous',
+          type: 'newVehicle'
+        }));
+
         // Combine and sort by time
-        const allActivity = [...contactsActivity, ...businessActivity, ...healthActivity, ...lifeActivity]
+        const allActivity = [
+          ...contactsActivity, 
+          ...businessActivity, 
+          ...healthActivity, 
+          ...lifeActivity,
+          ...oldVehicleActivity,
+          ...newVehicleActivity
+        ]
           .sort((a, b) => {
             const dateA = new Date(a.time);
             const dateB = new Date(b.time);
@@ -158,6 +189,30 @@ const AdminDashboard = () => {
       link: "/admin/life-leads",
       color: "bg-red-100 text-red-600",
       count: stats.lifeLeads
+    },
+    {
+      title: "Old Vehicles",
+      description: "Manage old vehicle insurance quotes",
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+        </svg>
+      ),
+      link: "/admin/old-vehicles-leads",
+      color: "bg-yellow-100 text-yellow-600",
+      count: stats.oldVehicles
+    },
+    {
+      title: "New Vehicles",
+      description: "Manage new vehicle insurance quotes",
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg>
+      ),
+      link: "/admin/new-vehicles-leads",
+      color: "bg-indigo-100 text-indigo-600",
+      count: stats.newVehicles
     }
   ];
 
@@ -195,6 +250,22 @@ const AdminDashboard = () => {
             </svg>
           </div>
         );
+      case 'oldVehicle':
+        return (
+          <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+            <svg className="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+          </div>
+        );
+      case 'newVehicle':
+        return (
+          <div className="bg-indigo-100 p-2 rounded-lg mr-3">
+            <svg className="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
+        );
       default:
         return (
           <div className="bg-gray-100 p-2 rounded-lg mr-3">
@@ -227,19 +298,19 @@ const AdminDashboard = () => {
         </motion.div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          {cards.map((card, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+          {cards.slice(0, 6).map((card, index) => (
             <motion.div 
               key={index}
               whileHover={{ y: -5 }}
-              className="bg-white rounded-xl shadow-md p-6 flex items-center"
+              className="bg-white rounded-xl shadow-md p-4 flex items-center"
             >
-              <div className={`${card.color.replace('text', 'bg')} p-3 rounded-lg mr-4`}>
+              <div className={`${card.color.replace('text', 'bg')} p-3 rounded-lg mr-3`}>
                 {card.icon}
               </div>
               <div>
-                <h3 className="text-gray-500 text-sm">{card.title}</h3>
-                <p className="text-2xl font-bold text-gray-800">
+                <h3 className="text-gray-500 text-xs font-medium">{card.title}</h3>
+                <p className="text-lg font-bold text-gray-800">
                   {loading ? '...' : card.count.toLocaleString()}
                 </p>
               </div>
@@ -248,7 +319,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Dashboard Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {cards.map((card, index) => (
             <motion.div
               key={index}
@@ -287,7 +358,7 @@ const AdminDashboard = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-8 bg-white rounded-xl shadow-md overflow-hidden"
+          className="bg-white rounded-xl shadow-md overflow-hidden"
         >
           <div className="px-6 py-4 border-b border-gray-100">
             <div className="flex justify-between items-center">

@@ -1,4 +1,5 @@
 import axiosInstance from './axiosInstance'; 
+
 export const submitLifeInsuranceLead = async (formData) => {
   try {
     const response = await axiosInstance.post('/life-insurance-leads', formData);

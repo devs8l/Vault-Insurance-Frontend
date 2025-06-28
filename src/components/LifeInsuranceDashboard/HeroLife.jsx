@@ -241,16 +241,18 @@ const HeroLife = () => {
             />
 
             {/* DOB Input with label */}
-            <div className="w-full">
+            <div className="w-full max-w-[480px] mx-auto">
               <input
                 type="date"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
                 className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 
-                      text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
+                text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 
+                w-full cursor-pointer rounded-md sm:text-base"
                 required
               />
             </div>
+
 
 
             <div className="relative">

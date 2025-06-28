@@ -24,6 +24,8 @@ import ContactsDashboard from './admin/ContactsDashboard';
 import BusinessQuotesPage from './admin/BusinessQuotesDashboard';
 import HealthLeadsPage from './admin/HealthLeadsDashboard';
 import LifeInsuranceLeads from './admin/LifeInsuranceLeads';
+import NewVehicleLeads from "./admin/NewVehicleLeads";
+import OldVehicleLeads from "./admin/OldVehicleLeads"
 
 
 function MainWebsite() {
@@ -70,6 +72,9 @@ function App() {
           <Route path="/admin/life-leads" element={<LifeInsuranceLeads />} />
           <Route path="/admin/health-leads" element={<HealthLeadsPage />} />
           <Route path="/admin/business-quotes" element={<BusinessQuotesPage />} />
+          <Route path='/admin/new-vehicles-leads' element={<NewVehicleLeads/>}/>
+          <Route path='/admin/old-vehicles-leads' element={<OldVehicleLeads/>}/>
+
         </>
       ) : (
         <>
@@ -78,6 +83,8 @@ function App() {
           <Route path="/admin/life-leads" element={<Navigate to="/admin" replace />} />
           <Route path="/admin/health-leads" element={<Navigate to="/admin" replace />} />
           <Route path="/admin/business-quotes" element={<Navigate to="/admin" replace />} />
+          <Route path="/admin/new-vehicles-leads" element={<Navigate to="/admin" replace />} />
+          <Route path="/admin/old-vehicles-leads" element={<Navigate to="/admin" replace />} />
         </>
       )}
     </Routes>

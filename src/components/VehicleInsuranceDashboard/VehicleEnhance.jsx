@@ -45,7 +45,7 @@ const VehicleEnhance = () => {
     return (
         <>
         {/* Type Vehicle Section start*/} 
-        <div className="bg-[#F4F8FB] px-3 py-4 flex justify-center items-center"> 
+        <div className="bg-[#F4F8FB] px-3 py-4  flex justify-center items-center"> 
             <section
                 className="w-full max-w-[1880px] min-h-[793px] flex-shrink-0
                         rounded-[30px] bg-white p-8 md:p-12 lg:p-24 shadow

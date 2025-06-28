@@ -15,7 +15,7 @@ const LoginPage = ({ onLoginSuccess }) => {
     
     // Simulate API call with timeout
     setTimeout(() => {
-      if (username === 'Admin' && password === 'admin@123') {
+      if (username === 'Vault' && password === 'Vault@123') {
         onLoginSuccess();
         navigate('/admin/dashboard');
       } else {

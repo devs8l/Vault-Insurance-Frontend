@@ -1,27 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 
-// Add currentStep to the destructured props
-const VehicleInsuranceForm = ({ onNext, setPolicyType, policyType, currentStep }) => {
-    const [fullName, setFullName] = useState("");
-    const [mobileNumber, setMobileNumber] = useState("");
-    const [emailId, setEmailId] = useState("");
-    const [pinCode, setPinCode] = useState("");
+const VehicleInsuranceForm = ({
+    onNext,
+    setPolicyType,
+    policyType,
+    currentStep,
+    formData,
+    setFormData,
+}) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Personal Information Submitted!");
-        console.log("Policy Type:", policyType);
-        console.log("Full Name:", fullName);
-        console.log("Mobile Number:", mobileNumber);
-        console.log("Email ID:", emailId);
-        console.log("PIN Code:", pinCode);
-
-        if (onNext && policyType === "new") {
-            onNext();
-        } else if (policyType === "old") {
-            console.log("Old Vehicle policy selected, form submitted.");
-            onNext();
-        }
+        onNext();
     };
 
     return (
@@ -32,69 +26,55 @@ const VehicleInsuranceForm = ({ onNext, setPolicyType, policyType, currentStep }
             <h2 className="text-[28px] md:text-[46px] font-semibold text-[#222] mb-1">Vehicle Insurance</h2>
             <p className="text-[14px] md:text-[16px] text-[#22272BCC] mb-8">Compare & Buy Best Fit Vehicle Insurance</p>
 
-            {/* Progress Indicator - Now currentStep is defined */}
+            {/* Progress Indicator */}
             <div className="flex w-full mb-8">
-                <div className={`flex-1 h-1 ${policyType === 'new' && currentStep === 1 ? 'bg-[#6290FF]' : 'bg-gray-200'} rounded-full mr-2`}></div>
-                <div className={`flex-1 h-1 ${policyType === 'new' && currentStep === 2 ? 'bg-[#6290FF]' : 'bg-gray-200'} rounded-full mr-2`}></div>
-                <div className={`flex-1 h-1 ${policyType === 'new' && currentStep === 3 ? 'bg-[#6290FF]' : 'bg-gray-200'} rounded-full`}></div>
+                <div className={`flex-1 h-1 ${currentStep === 1 ? 'bg-[#6290FF]' : 'bg-gray-200'} rounded-full mr-2`}></div>
+                <div className={`flex-1 h-1 ${currentStep === 2 ? 'bg-[#6290FF]' : 'bg-gray-200'} rounded-full mr-2`}></div>
+                <div className={`flex-1 h-1 ${currentStep === 3 ? 'bg-[#6290FF]' : 'bg-gray-200'} rounded-full`}></div>
             </div>
-
 
             <h3 className="text-[20px] font-semibold text-[#222] mb-6">Personal Information</h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {/* Full Name */}
-                <div className="relative">
-                    <input
-                        type="text"
-                        id="fullName"
-                        className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
-                        placeholder="Full Name"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        required
-                    />
-                    
-                </div>
+                <input
+                    type="text"
+                    name="fullName"
+                    className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
+                    placeholder="Full Name"
+                    value={formData.fullName || ""}
+                    onChange={handleChange}
+                    required
+                />
 
-                {/* Mobile Number */}
-                <div className="relative">
-                    <input
-                        type="tel"
-                        id="mobileNumber"
-                        className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
-                        placeholder="Mobile Number"
-                        value={mobileNumber}
-                        onChange={(e) => setMobileNumber(e.target.value)}
-                        required
-                    />
-                </div>
+                <input
+                    type="tel"
+                    name="mobileNumber"
+                    className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
+                    placeholder="Mobile Number"
+                    value={formData.mobileNumber || ""}
+                    onChange={handleChange}
+                    required
+                />
 
-                {/* Email ID */}
-                <div className="relative">
-                    <input
-                        type="email"
-                        id="emailId"
-                        className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
-                        placeholder="Email ID"
-                        value={emailId}
-                        onChange={(e) => setEmailId(e.target.value)}
-                        required
-                    />
-                </div>
+                <input
+                    type="email"
+                    name="emailId"
+                    className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
+                    placeholder="Email ID"
+                    value={formData.emailId || ""}
+                    onChange={handleChange}
+                    required
+                />
 
-                {/* PIN Code */}
-                <div className="relative">
-                    <input
-                        type="text"
-                        id="pinCode"
-                        className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
-                        placeholder="PIN Code"
-                        value={pinCode}
-                        onChange={(e) => setPinCode(e.target.value)}
-                        required
-                    />
-                </div>
+                <input
+                    type="text"
+                    name="pinCode"
+                    className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
+                    placeholder="PIN Code"
+                    value={formData.pinCode || ""}
+                    onChange={handleChange}
+                    required
+                />
             </div>
 
             {/* Policy Type Radio Buttons */}
@@ -123,7 +103,6 @@ const VehicleInsuranceForm = ({ onNext, setPolicyType, policyType, currentStep }
                 </label>
             </div>
 
-            {/* Next Button */}
             <div className="w-full flex justify-end">
                 <button
                     type="submit"

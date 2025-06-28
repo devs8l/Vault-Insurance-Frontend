@@ -1,16 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
-const VehicleInformationForm = ({ onPrevious, onNext }) => {
-    const [vehicleCategory, setVehicleCategory] = useState("");
-    const [vehicleBrand, setVehicleBrand] = useState("");
-    const [vehicleModel, setVehicleModel] = useState("");
-    const [fuelType, setFuelType] = useState("");
-    const [registrationYear, setRegistrationYear] = useState("");
-    const [coverageType, setCoverageType] = useState("");
-    const [preferredCompanies, setPreferredCompanies] = useState([]);
+const VehicleInformationForm = ({ onPrevious, onNext, formData, setFormData }) => {
+    const dropdownRef = useRef(null);
     const [showDropdown, setShowDropdown] = useState(false);
-
-    const dropdownRef = useRef(null); 
 
     const insuranceCompanies = [
         "ICICI Lombard General Insurance",
@@ -22,68 +14,56 @@ const VehicleInformationForm = ({ onPrevious, onNext }) => {
 
     const handleCompanyChange = (e) => {
         const { value, checked } = e.target;
-        setPreferredCompanies((prevCompanies) =>
-            checked
-                ? [...prevCompanies, value]
-                : prevCompanies.filter((company) => company !== value)
-        );
+        const selected = formData.preferredCompanies || [];
+        const updated = checked
+            ? [...selected, value]
+            : selected.filter((company) => company !== value);
+        setFormData({ ...formData, preferredCompanies: updated });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Vehicle Information Submitted!");
-        console.log("Vehicle Category:", vehicleCategory);
-        console.log("Vehicle Brand:", vehicleBrand);
-        console.log("Vehicle Model:", vehicleModel);
-        console.log("Fuel Type:", fuelType);
-        console.log("Registration Year:", registrationYear);
-        console.log("Coverage Type:", coverageType);
-        console.log("Preferred Companies:", preferredCompanies);
-        if (onNext) {
-            onNext();
-        }
+        onNext();
     };
 
-    // Effect to handle clicks outside the dropdown
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setShowDropdown(false);
             }
         };
-
         document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="bg-white rounded-3xl shadow-lg w-full p-8 lg:p-10 relative"
-        >
+        <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-lg w-full p-8 lg:p-10 relative">
             <h2 className="text-[28px] md:text-[46px] font-semibold text-[#222] mb-1">Vehicle Insurance</h2>
             <p className="text-[14px] md:text-[16px] text-[#22272BCC] mb-8">Compare & Buy Best Fit Vehicle Insurance</p>
 
-            {/* Progress Indicator (Updated for second step) */}
+            {/* Progress */}
             <div className="flex w-full mb-8">
-                <div className="flex-1 h-1 bg-[#6290FF] rounded-full mr-2"></div> {/* Completed */}
-                <div className="flex-1 h-1 bg-[#6290FF] rounded-full mr-2"></div> {/* Current */}
-                <div className="flex-1 h-1 bg-gray-200 rounded-full"></div> {/* Remaining */}
+                <div className="flex-1 h-1 bg-[#6290FF] rounded-full mr-2"></div>
+                <div className="flex-1 h-1 bg-[#6290FF] rounded-full mr-2"></div>
+                <div className="flex-1 h-1 bg-gray-200 rounded-full"></div>
             </div>
 
-            <h3 className="text-[20px] font-semibold text-[#222] mb-6">Vehicle Information</h3>
+            <h3 className="text-[20px] font-semibold text-[#222] mb-6">New Vehicle Information</h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {/* Vehicle Category Dropdown */}
+                {/* Vehicle Category */}
                 <div className="relative">
                     <select
-                        id="vehicleCategory"
+                        name="vehicleCategory"
                         className="w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 
                         text-sm text-[#22272BCC] appearance-none pr-8 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
-                        value={vehicleCategory}
-                        onChange={(e) => setVehicleCategory(e.target.value)}
+                        value={formData.vehicleCategory || ""}
+                        onChange={handleChange}
                         required
                     >
                         <option value="" disabled>Vehicle Category</option>
@@ -97,46 +77,41 @@ const VehicleInformationForm = ({ onPrevious, onNext }) => {
                         <option value="agricultural">Agricultural Vehicle</option>
                         <option value="construction">Construction Equipment</option>
                     </select>
-                    {/* Custom arrow for dropdown */}
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
 
-                {/* Vehicle Brand Input (assuming it's a type-ahead or similar, so input for now) */}
-                <div className="relative">
-                    <input
-                        type="text"
-                        id="vehicleBrand"
-                        className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
-                        placeholder="Vehicle Brand"
-                        value={vehicleBrand}
-                        onChange={(e) => setVehicleBrand(e.target.value)}
-                        required
-                    />
-                </div>
+                {/* Vehicle Brand */}
+                <input
+                    type="text"
+                    name="vehicleBrand"
+                    placeholder="Vehicle Brand"
+                    className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
+                    value={formData.vehicleBrand || ""}
+                    onChange={handleChange}
+                    required
+                />
 
-                {/* Vehicle Model Input */}
-                <div className="relative">
-                    <input
-                        type="text"
-                        id="vehicleModel"
-                        className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
-                        placeholder="Vehicle Model"
-                        value={vehicleModel}
-                        onChange={(e) => setVehicleModel(e.target.value)}
-                        required
-                    />
-                </div>
+                {/* Vehicle Model */}
+                <input
+                    type="text"
+                    name="vehicleModel"
+                    placeholder="Vehicle Model"
+                    className="bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full cursor-pointer"
+                    value={formData.vehicleModel || ""}
+                    onChange={handleChange}
+                    required
+                />
 
-                {/* Fuel Type Dropdown */}
+                {/* Fuel Type */}
                 <div className="relative">
                     <select
-                        id="fuelType"
+                        name="fuelType"
                         className="w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 
                         text-sm text-[#22272BCC] appearance-none pr-8 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
-                        value={fuelType}
-                        onChange={(e) => setFuelType(e.target.value)}
+                        value={formData.fuelType || ""}
+                        onChange={handleChange}
                         required
                     >
                         <option value="" disabled>Fuel Type</option>
@@ -151,14 +126,14 @@ const VehicleInformationForm = ({ onPrevious, onNext }) => {
                     </div>
                 </div>
 
-                {/* Expected Registration Year Dropdown */}
+                {/* Registration Year */}
                 <div className="relative">
                     <select
-                        id="registrationYear"
+                        name="registrationYear"
                         className="w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 
                         text-sm text-[#22272BCC] appearance-none pr-8 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
-                        value={registrationYear}
-                        onChange={(e) => setRegistrationYear(e.target.value)}
+                        value={formData.registrationYear || ""}
+                        onChange={handleChange}
                         required
                     >
                         <option value="" disabled>Est. Registration Year</option>
@@ -166,21 +141,20 @@ const VehicleInformationForm = ({ onPrevious, onNext }) => {
                             <option key={year} value={year}>{year}</option>
                         ))}
                     </select>
+
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
+                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
-
-                {/* Coverage Type Dropdown */}
+                
+                {/* Coverage Type */}
                 <div className="relative">
                     <select
-                        id="coverageType"
+                        name="coverageType"
                         className="w-full bg-white shadow-[10px_10px_40px_0px_rgba(26,129,255,0.10)] p-3 
                         text-sm text-[#22272BCC] appearance-none pr-8 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
-                        value={coverageType}
-                        onChange={(e) => setCoverageType(e.target.value)}
+                        value={formData.coverageType || ""}
+                        onChange={handleChange}
                         required
                     >
                         <option value="" disabled>Coverage Type</option>
@@ -193,8 +167,8 @@ const VehicleInformationForm = ({ onPrevious, onNext }) => {
                     </div>
                 </div>
 
-                {/* Preferred Insurance Companies Multi-select Dropdown */}
-                <div className="col-span-full relative" ref={dropdownRef}> 
+                {/* Preferred Insurance Companies Multi-select */}
+                <div className="col-span-full relative" ref={dropdownRef}>
                     <div className="relative">
                         <button
                             type="button"
@@ -202,25 +176,21 @@ const VehicleInformationForm = ({ onPrevious, onNext }) => {
                             onClick={() => setShowDropdown((prev) => !prev)}
                         >
                             <span>
-                                {preferredCompanies.length > 0
-                                    ? preferredCompanies.join(", ")
+                                {(formData.preferredCompanies || []).length > 0
+                                    ? formData.preferredCompanies.join(", ")
                                     : "Preferred Insurance Companies"}
                             </span>
-                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            <svg className="fill-current h-4 w-4" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                         </button>
 
-                        {/* Dropdown menu */}
                         {showDropdown && (
                             <div className="absolute z-10 mt-2 w-full bg-white border border-gray-200 rounded-xl shadow-md max-h-64 overflow-y-auto">
                                 {insuranceCompanies.map((company) => (
-                                    <label
-                                        key={company}
-                                        className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                                    >
+                                    <label key={company} className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
                                         <input
                                             type="checkbox"
                                             value={company}
-                                            checked={preferredCompanies.includes(company)}
+                                            checked={(formData.preferredCompanies || []).includes(company)}
                                             onChange={handleCompanyChange}
                                             className="accent-[#6290FF] mr-2"
                                         />
@@ -233,7 +203,7 @@ const VehicleInformationForm = ({ onPrevious, onNext }) => {
                 </div>
             </div>
 
-            {/* Previous and Next Buttons */}
+            {/* Buttons */}
             <div className="w-full flex justify-end gap-4 mt-8">
                 <button
                     type="button"

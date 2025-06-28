@@ -1,21 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
-const NewFirstForm = ({ onNext, setPolicyType, policyType, currentStep }) => {
-    const [fullName, setFullName] = useState("");
-    const [mobileNumber, setMobileNumber] = useState("");
-    const [emailId, setEmailId] = useState("");
-    const [pinCode, setPinCode] = useState("");
+const NewFirstForm = ({ onNext, setPolicyType, policyType, currentStep ,formData, setFormData }) => {
+    const handleChange = (field, value) => setFormData(prev => ({ ...prev, [field]: value }));
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Personal Information Submitted!");
-        console.log("Policy Type:", policyType);
-        console.log("Full Name:", fullName);
-        console.log("Mobile Number:", mobileNumber);
-        console.log("Email ID:", emailId);
-        console.log("PIN Code:", pinCode);
-
-        if (onNext) onNext();
+        onNext();
     };
 
     return (
@@ -49,32 +39,32 @@ const NewFirstForm = ({ onNext, setPolicyType, policyType, currentStep }) => {
                 <input
                     type="text"
                     placeholder="Full Name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    value={formData.fullName}
+                    onChange={(e) => handleChange("fullName", e.target.value)}
                     required
                     className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                 />
                 <input
                     type="tel"
                     placeholder="Mobile Number"
-                    value={mobileNumber}
-                    onChange={(e) => setMobileNumber(e.target.value)}
+                    value={formData.mobileNumber}
+                    onChange={(e) => handleChange("mobileNumber", e.target.value)}
                     required
                     className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                 />
                 <input
                     type="email"
                     placeholder="Email ID"
-                    value={emailId}
-                    onChange={(e) => setEmailId(e.target.value)}
+                    value={formData.emailId}
+                    onChange={(e) => handleChange("emailId",e.target.value)}
                     required
                     className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                 />
                 <input
                     type="text"
                     placeholder="PIN Code"
-                    value={pinCode}
-                    onChange={(e) => setPinCode(e.target.value)}
+                    value={formData.pinCode}
+                    onChange={(e) => handleChange("pinCode", e.target.value)}
                     required
                     className="w-full h-14 px-4 bg-white border border-[#d9dde1] rounded-[16px] text-base focus:outline-none focus:border-blue-300 cursor-pointer"
                 />
